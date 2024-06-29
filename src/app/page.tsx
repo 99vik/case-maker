@@ -1,9 +1,11 @@
-import Image from 'next/image';
+import FullWidthWrapper from '@/components/FullWidthWrapper';
 
 export default function Home() {
   return (
     <main>
-      <div>body</div>
+      <FullWidthWrapper>
+        <div>hello</div>
+      </FullWidthWrapper>
     </main>
   );
 }
