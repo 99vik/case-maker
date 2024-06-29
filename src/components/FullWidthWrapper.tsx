@@ -9,7 +9,12 @@ export default function FullWidthWrapper({
   children: ReactNode;
 }) {
   return (
-    <div className={cn("mx-auto w-full max-w-screen-xl bg-red-500", className)}>
+    <div
+      className={cn(
+        "mx-auto w-full max-w-screen-xl sm:px-14 md:px-28",
+        className,
+      )}
+    >
       {children}
     </div>
   );
