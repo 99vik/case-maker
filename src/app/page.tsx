@@ -1,13 +1,14 @@
 import FullWidthWrapper from "@/components/FullWidthWrapper";
+import Phone from "@/components/Phone";
 import { Check, Star } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <main>
-      <FullWidthWrapper className="my-12 grid grid-cols-3 gap-5 text-zinc-700">
+      <FullWidthWrapper className="my-12 grid grid-cols-3 gap-5">
         <div className="col-span-2 space-y-8">
-          <h1 className="text-6xl font-bold leading-tight text-black">
+          <h1 className="text-6xl font-bold leading-tight">
             Your Image on a<br /> <span className="text-primary">Custom</span>{" "}
             Phone Case
           </h1>
@@ -83,7 +84,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="bg-red-500">hello</div>
+        <div className="itemsce flex justify-center">
+          <Phone className="w-2/3" imgSrc="/testimonials/1.jpg" />
+        </div>
       </FullWidthWrapper>
     </main>
   );
