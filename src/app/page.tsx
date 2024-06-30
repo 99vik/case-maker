@@ -6,11 +6,11 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main>
-      <FullWidthWrapper className="my-12 grid grid-cols-3 gap-5">
-        <div className="col-span-2 space-y-8">
+      <FullWidthWrapper className="my-14 grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-10">
+        <div className="col-span-2 space-y-8 max-lg:text-center">
           <h1 className="text-6xl font-bold leading-tight">
-            Your Image on a<br /> <span className="text-primary">Custom</span>{" "}
-            Phone Case
+            Your Image on a <span className="text-primary">Custom</span> Phone
+            Case
           </h1>
           <p className="text-lg">
             Capture your favorite memories with your own,{" "}
@@ -85,7 +85,7 @@ export default function Home() {
           </div>
         </div>
         <div className="itemsce flex justify-center">
-          <Phone className="w-2/3" imgSrc="/testimonials/1.jpg" />
+          <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
     </main>

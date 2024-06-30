@@ -10,18 +10,23 @@ export default function Phone({
   imgSrc: string;
 }) {
   return (
-    <div className={cn("relative overflow-hidden", className)}>
+    <div
+      className={cn(
+        "pointer-events-none relative select-none overflow-hidden",
+        className,
+      )}
+    >
       <img
         src={
           dark
             ? "/phone-template-dark-edges.png"
             : "/phone-template-white-edges.png"
         }
-        className="z-50 select-none"
+        className="pointer-events-none z-50 select-none"
         alt="phone image"
       />
       <div className="absolute inset-0 -z-10">
-        <img className="" src={imgSrc} alt="overlaying phone image" />
+        <img src={imgSrc} alt="overlaying phone image" />
       </div>
     </div>
   );

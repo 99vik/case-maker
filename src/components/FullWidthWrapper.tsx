@@ -11,7 +11,7 @@ export default function FullWidthWrapper({
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-screen-xl sm:px-14 md:px-28",
+        "mx-auto w-full max-w-screen-xl px-4 sm:px-14 md:px-28",
         className,
       )}
     >
