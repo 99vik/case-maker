@@ -1,9 +1,12 @@
+import { auth, signIn, signOut } from "@/auth";
 import FullWidthWrapper from "@/components/FullWidthWrapper";
 import Phone from "@/components/Phone";
 import { Check, Star } from "lucide-react";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
   return (
     <main>
       <FullWidthWrapper className="my-14 grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-10">
@@ -88,6 +91,24 @@ export default function Home() {
           <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
+
+      <form
+        action={async () => {
+          "use server";
+          await signIn("github");
+        }}
+      >
+        <button type="submit">Signin with GitHub</button>
+      </form>
+      <form
+        action={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
+        <button type="submit">Sign Out</button>
+      </form>
     </main>
   );
 }
