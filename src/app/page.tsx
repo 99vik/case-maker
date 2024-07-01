@@ -91,24 +91,6 @@ export default async function Home() {
           <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-
-      <form
-        action={async () => {
-          "use server";
-          await signIn("github");
-        }}
-      >
-        <button type="submit">Signin with GitHub</button>
-      </form>
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button type="submit">Sign Out</button>
-      </form>
     </main>
   );
 }
