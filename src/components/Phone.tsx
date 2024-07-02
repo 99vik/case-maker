@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function Phone({
   className,
@@ -26,7 +27,7 @@ export default function Phone({
         alt="phone image"
       />
       <div className="absolute inset-0 -z-10">
-        <img src={imgSrc} alt="overlaying phone image" />
+        <Image src={imgSrc} fill alt="overlaying phone image" />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main>
-      <FullWidthWrapper className="my-14 grid grid-cols-1 justify-items-center gap-y-16 lg:grid-cols-3 lg:gap-10">
+      <FullWidthWrapper className="my-16 grid grid-cols-1 justify-items-center gap-y-16 lg:grid-cols-3 lg:gap-10">
         <div className="col-span-2 space-y-8 max-lg:text-center">
           <h1 className="text-6xl font-bold leading-tight">
             Your Image on a <span className="text-primary">Custom</span> Phone
@@ -85,11 +85,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="relative flex justify-center">
+          <img
+            src="/your-image.png"
+            className="absolute -top-12 left-56 hidden w-32 select-none sm:block lg:hidden lg:w-40 xl:block"
+          />
           <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
-      <h2 className="my-4 text-center text-4xl font-semibold text-primary">
+      <h2 className="mb-8 text-center text-4xl font-semibold text-primary">
         What our customers are buying
       </h2>
       <ShowcaseParallax />
