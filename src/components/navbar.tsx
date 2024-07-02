@@ -8,7 +8,6 @@ export default async function Navbar() {
   const session = await auth();
   const user = session?.user;
 
-  console.log(user);
   return (
     <nav className="border-b bg-background">
       <FullWidthWrapper className="py-4 sm:px-4 md:px-4">

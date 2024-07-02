@@ -1,15 +1,13 @@
-import { auth, signIn, signOut } from "@/auth";
 import FullWidthWrapper from "@/components/FullWidthWrapper";
 import Phone from "@/components/Phone";
+import ShowcaseParallax from "@/components/ShowcaseParallax";
 import { Check, Star } from "lucide-react";
 import Image from "next/image";
 
-export default async function Home() {
-  const session = await auth();
-
+export default function Home() {
   return (
     <main>
-      <FullWidthWrapper className="my-14 grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-10">
+      <FullWidthWrapper className="my-14 grid grid-cols-1 justify-items-center gap-y-16 lg:grid-cols-3 lg:gap-10">
         <div className="col-span-2 space-y-8 max-lg:text-center">
           <h1 className="text-6xl font-bold leading-tight">
             Your Image on a <span className="text-primary">Custom</span> Phone
@@ -87,10 +85,15 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <div className="itemsce flex justify-center">
+        <div className="flex justify-center">
           <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
+      <h2 className="my-4 text-center text-4xl font-semibold text-primary">
+        What our customers are buying
+      </h2>
+      <ShowcaseParallax />
+      <div className="h-screen" />
     </main>
   );
 }
