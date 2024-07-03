@@ -1,7 +1,8 @@
 import FullWidthWrapper from "@/components/FullWidthWrapper";
 import Phone from "@/components/Phone";
 import ShowcaseParallax from "@/components/ShowcaseParallax";
-import { Check, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Check, Star } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -93,9 +94,9 @@ export default function Home() {
           <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
-      <section className="bg-background shadow-[0_0_20px_10px_rgba(255,255,255)]">
+      <section className="bg-background">
         <FullWidthWrapper className="flex flex-col gap-10 py-6">
-          <h2 className="text-balance text-center text-5xl font-semibold leading-tight tracking-tight text-primary">
+          <h2 className="text-balance text-center text-4xl font-bold leading-tight tracking-tight text-foreground">
             What our customers say
           </h2>
           <div className="grid gap-10 md:grid-cols-2">
@@ -263,12 +264,32 @@ export default function Home() {
           </div>
         </FullWidthWrapper>
       </section>
-      <h2 className="mb-8 text-center text-4xl font-semibold text-primary">
-        What our customers are buying
-      </h2>
-
-      <ShowcaseParallax />
-      <div className="h-screen" />
+      <section>
+        <h2 className="my-10 text-balance text-center text-4xl font-bold leading-tight tracking-tight text-foreground">
+          What our customers are buying
+        </h2>
+        <ShowcaseParallax />
+      </section>
+      <section className="bg-background pb-10">
+        <FullWidthWrapper className="flex flex-col items-center gap-8 py-6">
+          <h2 className="max-w-[500px] text-balance text-center text-4xl font-bold leading-tight tracking-tight text-foreground">
+            Upload your own <span className="text-primary">custom</span> photo
+            and get your case <span className="text-primary">now</span>
+          </h2>
+          <div className="relative flex flex-col gap-20 min-[820px]:flex-row min-[820px]:gap-32">
+            <img src="/testimonials/7.png" className="w-56 rounded-sm" />
+            <img
+              src="/arrow.png"
+              className="absolute left-1/2 top-1/2 w-16 -translate-x-1/2 -translate-y-1/2 max-[820px]:-translate-y-9 max-[820px]:rotate-90 min-[820px]:w-24"
+            />
+            <Phone className="z-50 w-56" imgSrc="/testimonials/7.png" />
+          </div>
+          <Button className="text-md flex gap-2">
+            Create your case now
+            <ArrowRight strokeWidth={2} size={20} />
+          </Button>{" "}
+        </FullWidthWrapper>
+      </section>
     </main>
   );
 }
