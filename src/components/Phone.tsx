@@ -26,7 +26,7 @@ export default function Phone({
         className="pointer-events-none z-50 select-none"
         alt="phone image"
       />
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-[1px] -z-10">
         <Image src={imgSrc} fill alt="overlaying phone image" />
       </div>
     </div>
