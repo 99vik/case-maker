@@ -3,6 +3,7 @@ import FullWidthWrapper from "./FullWidthWrapper";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { auth, signOut } from "@/auth";
+import MobileNav from "./MobileNav";
 
 export default async function Navbar() {
   const session = await auth();
@@ -15,7 +16,8 @@ export default async function Navbar() {
           <Link href="/" className="text-2xl font-bold">
             Case<span className="text-primary">Maker</span>
           </Link>
-          <div className="flex items-center space-x-5">
+          <MobileNav user={user} />
+          <div className="hidden items-center space-x-5 md:flex">
             {user ? (
               <form
                 action={async () => {

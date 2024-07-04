@@ -277,7 +277,10 @@ export default function Home() {
             and get your case <span className="text-primary">now</span>
           </h2>
           <div className="relative flex flex-col gap-20 min-[820px]:flex-row min-[820px]:gap-32">
-            <img src="/testimonials/7.png" className="w-56 rounded-sm" />
+            <img
+              src="/testimonials/7.png"
+              className="w-56 rounded-sm shadow-lg shadow-zinc-500"
+            />
             <img
               src="/arrow.png"
               className="absolute left-1/2 top-1/2 w-16 -translate-x-1/2 -translate-y-1/2 max-[820px]:-translate-y-9 max-[820px]:rotate-90 min-[820px]:w-24"
