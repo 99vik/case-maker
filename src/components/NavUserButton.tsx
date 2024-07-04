@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "./UserAvatar";
 import { User } from "next-auth";
+import { signOut } from "@/auth";
+import { LogOut } from "lucide-react";
 
 export default function NavUserButton({ user }: { user: User }) {
   return (
@@ -16,12 +18,27 @@ export default function NavUserButton({ user }: { user: User }) {
         <UserAvatar imageUrl={user.image} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs text-muted-foreground">
+          {user.email}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <form
+          action={async () => {
+            "use server";
+            await signOut({ redirectTo: "/" });
+          }}
+        >
+          <DropdownMenuItem asChild>
+            <button
+              className="flex h-full w-full items-center gap-1"
+              type="submit"
+            >
+              <LogOut size={16} strokeWidth={1.5} /> Sign out
+            </button>
+          </DropdownMenuItem>
+        </form>
         <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
