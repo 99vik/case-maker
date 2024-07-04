@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import MobileNav from "./MobileNav";
+import NavUserButton from "./NavUserButton";
 
 export default async function Navbar() {
   const session = await auth();
@@ -19,20 +20,7 @@ export default async function Navbar() {
           <MobileNav user={user} />
           <div className="hidden items-center space-x-5 md:flex">
             {user ? (
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <Button
-                  variant="ghost"
-                  className="text-md text-zinc-700"
-                  type="submit"
-                >
-                  Sign Out
-                </Button>
-              </form>
+              <NavUserButton user={user} />
             ) : (
               <Link href="/signin">
                 <Button variant="ghost" className="text-md text-zinc-700">
