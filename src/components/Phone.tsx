@@ -27,7 +27,7 @@ export default function Phone({
         alt="phone image"
       />
       <div className="absolute inset-[1px] -z-10">
-        <Image src={imgSrc} fill alt="overlaying phone image" />
+        <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />
       </div>
     </div>
   );
