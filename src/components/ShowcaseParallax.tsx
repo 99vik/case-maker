@@ -27,7 +27,7 @@ export default function ShowcaseParallax() {
   return (
     <FullWidthWrapper
       ref={container}
-      className="relative grid h-[60vh] grid-cols-3 justify-items-center overflow-hidden rounded-xl border-b px-0 sm:px-0 md:h-[120vh] md:px-0 lg:h-[140vh]"
+      className="pointer-events-none relative grid h-[60vh] touch-none select-none grid-cols-3 justify-items-center overflow-hidden rounded-xl border-b px-0 sm:px-0 md:h-[120vh] md:px-0 lg:h-[140vh]"
     >
       <div className="absolute top-0 z-50 h-16 w-full bg-gradient-to-b from-secondary to-transparent" />
 
@@ -42,7 +42,7 @@ function Column({ images, y }: { images: string[]; y: MotionValue }) {
   return (
     <motion.div style={{ y }} className="space-y-4">
       {images.map((image, index) => (
-        <div className="rounded-xl border bg-background p-4" key={index}>
+        <div className="rounded-xl border bg-background p-2 md:p-4" key={index}>
           <Phone imgSrc={image} className="z-50 w-24 sm:w-40 md:w-48 lg:w-64" />
         </div>
       ))}

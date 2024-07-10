@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <FullWidthWrapper className="my-16 grid grid-cols-1 justify-items-center gap-y-16 lg:grid-cols-3 lg:gap-10">
         <div className="col-span-2 space-y-8 max-lg:text-center">
-          <h1 className="text-6xl font-bold leading-tight">
+          <h1 className="text-6xl font-bold md:leading-tight">
             Your Image on a <span className="text-primary">Custom</span> Phone
             Case
           </h1>
@@ -96,7 +96,7 @@ export default function Home() {
       </FullWidthWrapper>
       <section className="bg-background">
         <FullWidthWrapper className="flex flex-col gap-10 py-6">
-          <h2 className="text-balance text-center text-4xl font-bold leading-tight tracking-tight text-foreground">
+          <h2 className="text-balance text-center text-4xl font-bold tracking-tight text-foreground md:leading-tight">
             What our customers say
           </h2>
           <div className="grid gap-10 md:grid-cols-2">
@@ -129,7 +129,6 @@ export default function Home() {
                   <Star size={15} className="fill-primary text-primary" />
                   <Star size={15} className="fill-primary text-primary" />
                 </div>
-                {/* <h2 className="text-balance text-center text-5xl font-semibold leading-tight tracking-tight text-primary"> */}
 
                 <p className="text-balance leading-loose">
                   &quot;The case feels durable and I even got a compliment on
@@ -265,14 +264,14 @@ export default function Home() {
         </FullWidthWrapper>
       </section>
       <section>
-        <h2 className="my-10 text-balance text-center text-4xl font-bold leading-tight tracking-tight text-foreground">
+        <h2 className="my-10 text-balance text-center text-4xl font-bold tracking-tight text-foreground md:leading-tight">
           What our customers are buying
         </h2>
         <ShowcaseParallax />
       </section>
       <section className="bg-background pb-10">
         <FullWidthWrapper className="flex flex-col items-center gap-8 py-6">
-          <h2 className="max-w-[500px] text-balance text-center text-4xl font-bold leading-tight tracking-tight text-foreground">
+          <h2 className="max-w-[500px] text-balance text-center text-4xl font-bold tracking-tight text-foreground md:leading-tight">
             Upload your own <span className="text-primary">custom</span> photo
             and get your case <span className="text-primary">now</span>
           </h2>

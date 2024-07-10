@@ -5,14 +5,10 @@ import { ArrowRight } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import MobileNav from "./MobileNav";
 import NavUserButton from "./NavUserButton";
-import { db } from "@/db";
 
 export default async function Navbar() {
   const session = await auth();
   const user = session?.user;
-
-  // const a = await db.query.order.findMany();
-  // console.log(a);
 
   return (
     <nav className="border-b bg-background">
