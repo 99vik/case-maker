@@ -27,7 +27,7 @@ export default function ShowcaseParallax() {
   return (
     <FullWidthWrapper
       ref={container}
-      className="pointer-events-none relative grid h-[60vh] touch-none select-none grid-cols-3 justify-items-center overflow-hidden rounded-xl border-b px-0 sm:px-0 md:h-[120vh] md:px-0 lg:h-[140vh]"
+      className="pointer-events-none relative grid h-[60vh] touch-none select-none grid-cols-3 justify-items-center overflow-hidden border-b-2 px-0 sm:px-0 md:h-[120vh] md:px-0 lg:h-[140vh]"
     >
       <div className="absolute top-0 z-50 h-16 w-full bg-gradient-to-b from-secondary to-transparent" />
 

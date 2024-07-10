@@ -8,9 +8,9 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main>
-      <FullWidthWrapper className="my-16 grid grid-cols-1 justify-items-center gap-y-16 lg:grid-cols-3 lg:gap-10">
-        <div className="col-span-2 space-y-8 max-lg:text-center">
-          <h1 className="text-6xl font-bold md:leading-tight">
+      <FullWidthWrapper className="my-8 grid grid-cols-1 justify-items-center gap-y-10 md:my-16 lg:grid-cols-3 lg:gap-10">
+        <div className="col-span-2 space-y-4 max-lg:text-center md:space-y-8">
+          <h1 className="text-4xl font-bold md:text-6xl md:leading-tight">
             Your Image on a <span className="text-primary">Custom</span> Phone
             Case
           </h1>
@@ -91,11 +91,11 @@ export default function Home() {
             src="/your-image.png"
             className="absolute -top-12 left-56 hidden w-32 select-none sm:block lg:hidden lg:w-40 xl:block"
           />
-          <Phone className="w-60" imgSrc="/testimonials/1.jpg" />
+          <Phone className="w-52 md:w-60" imgSrc="/testimonials/1.jpg" />
         </div>
       </FullWidthWrapper>
       <section className="bg-background">
-        <FullWidthWrapper className="flex flex-col gap-10 py-6">
+        <FullWidthWrapper className="flex flex-col gap-8 py-6">
           <h2 className="text-balance text-center text-4xl font-bold tracking-tight text-foreground md:leading-tight">
             What our customers say
           </h2>
@@ -269,22 +269,22 @@ export default function Home() {
         </h2>
         <ShowcaseParallax />
       </section>
-      <section className="bg-background pb-10">
+      <section className="bg-background pb-5">
         <FullWidthWrapper className="flex flex-col items-center gap-8 py-6">
           <h2 className="max-w-[500px] text-balance text-center text-4xl font-bold tracking-tight text-foreground md:leading-tight">
             Upload your own <span className="text-primary">custom</span> photo
             and get your case <span className="text-primary">now</span>
           </h2>
-          <div className="relative flex flex-col gap-20 min-[820px]:flex-row min-[820px]:gap-32">
+          <div className="relative flex flex-col gap-14 md:gap-20 min-[820px]:flex-row min-[820px]:gap-32">
             <img
               src="/testimonials/7.png"
-              className="w-56 rounded-sm shadow-lg shadow-zinc-500"
+              className="w-36 rounded-sm shadow-lg shadow-zinc-500 md:w-56"
             />
             <img
               src="/arrow.png"
-              className="absolute left-1/2 top-1/2 w-16 -translate-x-1/2 -translate-y-1/2 max-[820px]:-translate-y-9 max-[820px]:rotate-90 min-[820px]:w-24"
+              className="absolute left-1/2 top-1/2 w-12 -translate-x-1/2 -translate-y-1/2 max-[820px]:-translate-y-6 max-[820px]:rotate-90 min-[820px]:w-24"
             />
-            <Phone className="z-50 w-56" imgSrc="/testimonials/7.png" />
+            <Phone className="z-50 w-36 md:w-56" imgSrc="/testimonials/7.png" />
           </div>
           <Button className="text-md flex gap-2">
             Create your case now
