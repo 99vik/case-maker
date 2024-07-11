@@ -7,11 +7,11 @@ export default function UserAvatar({
   imageUrl: string | null | undefined;
 }) {
   return (
-    <Avatar>
+    <Avatar className="size-9">
       {/* @ts-ignore */}
       <AvatarImage src={imageUrl} />
       <AvatarFallback className="border border-foreground/30 bg-secondary">
-        <User size={22} className="text-foreground/70" />
+        <User size={18} className="text-foreground/70" />
       </AvatarFallback>
     </Avatar>
   );

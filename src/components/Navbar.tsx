@@ -12,7 +12,7 @@ export default async function Navbar() {
 
   return (
     <nav className="border-b bg-background">
-      <FullWidthWrapper className="py-4 sm:px-4 md:px-4">
+      <FullWidthWrapper className="py-2 sm:px-4 md:px-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold">
             Case<span className="text-primary">Maker</span>
@@ -23,14 +23,18 @@ export default async function Navbar() {
               <NavUserButton user={user} />
             ) : (
               <Link href="/signin">
-                <Button variant="ghost" className="text-md text-zinc-700">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-md text-zinc-700"
+                >
                   Sign In
                 </Button>
               </Link>
             )}
             <div className="h-10 w-px bg-zinc-200" />
             <Link href="/configure/upload">
-              <Button className="text-md flex gap-2">
+              <Button size="sm" className="text-md flex gap-2">
                 Create case
                 <ArrowRight strokeWidth={2} size={20} />
               </Button>
