@@ -29,10 +29,12 @@ export default async function Navbar() {
               </Link>
             )}
             <div className="h-10 w-px bg-zinc-200" />
-            <Button className="text-md flex gap-2">
-              Create case
-              <ArrowRight strokeWidth={2} size={20} />
-            </Button>
+            <Link href="/configure/upload">
+              <Button className="text-md flex gap-2">
+                Create case
+                <ArrowRight strokeWidth={2} size={20} />
+              </Button>
+            </Link>
           </div>
         </div>
       </FullWidthWrapper>

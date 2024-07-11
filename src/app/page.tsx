@@ -4,10 +4,11 @@ import ShowcaseParallax from "@/components/ShowcaseParallax";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <FullWidthWrapper className="my-8 grid grid-cols-1 justify-items-center gap-y-10 md:my-16 lg:grid-cols-3 lg:gap-10">
         <div className="col-span-2 space-y-4 max-lg:text-center md:space-y-8">
           <h1 className="text-4xl font-bold md:text-6xl md:leading-tight">
@@ -286,12 +287,14 @@ export default function Home() {
             />
             <Phone className="z-50 w-36 md:w-56" imgSrc="/testimonials/7.png" />
           </div>
-          <Button className="text-md flex gap-2">
-            Create your case now
-            <ArrowRight strokeWidth={2} size={20} />
-          </Button>{" "}
+          <Link href="configure/upload">
+            <Button className="text-md flex gap-2">
+              Create your case now
+              <ArrowRight strokeWidth={2} size={20} />
+            </Button>{" "}
+          </Link>
         </FullWidthWrapper>
       </section>
-    </main>
+    </>
   );
 }

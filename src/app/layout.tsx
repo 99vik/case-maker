@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-secondary", roboto.className)}>
         <Navbar />
-        {children}
+        <main className="min-h-[calc(100vh-72.8px-80px)]">{children}</main>
         <Footer />
       </body>
     </html>
