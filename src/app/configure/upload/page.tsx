@@ -8,7 +8,7 @@ export default function Page() {
     <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
       {({ getRootProps, getInputProps }) => (
         <div
-          className="my-8 flex flex-1 items-center justify-center rounded-3xl border-2 border-dashed border-zinc-300 bg-zinc-200"
+          className="my-8 flex flex-1 items-center justify-center rounded-3xl border-2 border-dashed border-zinc-300 bg-background"
           {...getRootProps()}
         >
           <input {...getInputProps()} />
