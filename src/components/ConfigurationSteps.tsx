@@ -26,10 +26,10 @@ export default function ConfigurationSteps() {
   const currentIndex = STEPS.findIndex((step) => pathname.includes(step.url));
 
   return (
-    <div className="grid grid-cols-3 border-l border-r bg-background">
+    <div className="grid border-l border-r bg-background md:grid-cols-3">
       {STEPS.map((step, index) => (
         <div key={step.title} className="relative">
-          <div className="px-8 py-4 text-sm">
+          <div className="border-b px-8 py-4 text-sm md:border-b-0">
             <p
               className={cn(
                 currentIndex == index && "text-primary",
@@ -42,7 +42,7 @@ export default function ConfigurationSteps() {
           </div>
           {index != 2 && (
             <svg
-              className="absolute right-0 top-0 h-full translate-x-[100%] text-muted-foreground/40"
+              className="absolute right-0 top-0 hidden h-full translate-x-[100%] text-muted-foreground/40 md:block"
               viewBox="0 0 12 82"
               fill="none"
               preserveAspectRatio="none"
@@ -56,7 +56,7 @@ export default function ConfigurationSteps() {
           )}
           <div
             className={cn(
-              "absolute bottom-0 h-1 w-full bg-muted-foreground/40",
+              "absolute bottom-0 h-full w-1 bg-muted-foreground/40 md:h-1 md:w-full",
               currentIndex == index && "bg-primary",
               currentIndex > index && "bg-green-600",
             )}

@@ -1,14 +1,46 @@
 "use client";
 
+import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import { Image as ImageIcon } from "lucide-react";
-import Dropzone from "react-dropzone";
+import { useState } from "react";
+import Dropzone, { FileRejection } from "react-dropzone";
 
 export default function Page() {
+  const [isDragOver, setIsDragOver] = useState(false);
+  const { toast } = useToast();
+
+  function onDropAccepted(file: File[]) {
+    console.log(file[0]);
+  }
+
+  function onDropRejected(file: FileRejection[]) {
+    setIsDragOver(false);
+    toast({
+      title: "Error has occurred.",
+      description: file[0].errors[0].message + ".",
+      variant: "destructive",
+    });
+  }
   return (
-    <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+    <Dropzone
+      onDragEnter={() => setIsDragOver(true)}
+      onDragLeave={() => setIsDragOver(false)}
+      onDropAccepted={onDropAccepted}
+      onDropRejected={onDropRejected}
+      maxFiles={1}
+      accept={{
+        "image/png": [".png"],
+        "image/jpeg": [".jpeg"],
+        "image/jpg": [".jpg"],
+      }}
+    >
       {({ getRootProps, getInputProps }) => (
         <div
-          className="my-8 flex flex-1 items-center justify-center rounded-3xl border-2 border-dashed border-zinc-300 bg-background"
+          className={cn(
+            "my-8 flex flex-1 items-center justify-center rounded-3xl border-2 border-dashed border-zinc-300 bg-background transition",
+            isDragOver && "border-primary",
+          )}
           {...getRootProps()}
         >
           <input {...getInputProps()} />

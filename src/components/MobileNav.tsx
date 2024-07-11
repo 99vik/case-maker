@@ -1,21 +1,21 @@
 "use client";
 
-import { ArrowRight, Menu } from "lucide-react";
-import { Button } from "./ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ArrowRight, Menu } from "lucide-react";
 import { User } from "next-auth";
 import Link from "next/link";
+import { Button } from "./ui/button";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 export default function MobileNav({ user }: { user: User | undefined }) {
   return (
-    <Sheet>
+    <Sheet aria-describedby="mobile menu">
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -25,6 +25,9 @@ export default function MobileNav({ user }: { user: User | undefined }) {
         </Button>
       </SheetTrigger>
       <SheetContent>
+        <DialogDescription className="hidden">
+          Small screen menu
+        </DialogDescription>
         <SheetHeader>
           <SheetTitle className="text-center">
             Case<span className="text-primary">Maker</span>
