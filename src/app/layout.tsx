@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
-const roboto = Roboto({
-  weight: "400",
+const nunito = Nunito({
+  weight: "500",
   subsets: ["latin"],
 });
+
 export const metadata: Metadata = {
   title: "CaseMaker",
   description: "Create your own custom case.",
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("bg-secondary", roboto.className)}>
+      <body className={cn("bg-secondary", nunito.className)}>
         <Navbar />
         <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
           {children}

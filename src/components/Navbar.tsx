@@ -2,7 +2,7 @@ import Link from "next/link";
 import FullWidthWrapper from "./FullWidthWrapper";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import MobileNav from "./MobileNav";
 import NavUserButton from "./NavUserButton";
 

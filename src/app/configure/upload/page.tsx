@@ -2,6 +2,7 @@
 
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
+import { useUploadThing } from "@/utils/uploadthing";
 import { Image as ImageIcon } from "lucide-react";
 import { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
@@ -9,19 +10,31 @@ import Dropzone, { FileRejection } from "react-dropzone";
 export default function Page() {
   const [isDragOver, setIsDragOver] = useState(false);
   const { toast } = useToast();
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onClientUploadComplete: ([data]) => {
+      console.log(data);
+    },
+    onUploadError: () => {
+      toast({
+        title: "Error has occurred while uploading.",
+        variant: "destructive",
+      });
+    },
+  });
 
-  function onDropAccepted(file: File[]) {
-    console.log(file[0]);
+  function onDropAccepted(files: File[]) {
+    startUpload(files);
   }
 
-  function onDropRejected(file: FileRejection[]) {
+  function onDropRejected(files: FileRejection[]) {
     setIsDragOver(false);
     toast({
       title: "Error has occurred.",
-      description: file[0].errors[0].message + ".",
+      description: files[0].errors[0].message,
       variant: "destructive",
     });
   }
+
   return (
     <Dropzone
       onDragEnter={() => setIsDragOver(true)}
