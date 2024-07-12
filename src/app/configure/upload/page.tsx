@@ -51,7 +51,7 @@ export default function Page() {
       {({ getRootProps, getInputProps }) => (
         <div
           className={cn(
-            "my-8 flex flex-1 items-center justify-center rounded-3xl border-2 border-dashed border-zinc-300 bg-background transition",
+            "my-6 flex flex-1 items-center justify-center rounded-3xl border-2 border-dashed border-zinc-300 bg-background transition",
             isDragOver && "border-primary",
           )}
           {...getRootProps()}
