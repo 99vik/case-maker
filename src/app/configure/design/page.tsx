@@ -3,6 +3,9 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { Rnd } from "react-rnd";
+
+const resizeHandleStyle = "rounded-full bg-foreground";
+
 export default function Page() {
   return (
     <div className="my-6 grid w-full grid-cols-3 gap-2">
@@ -12,10 +15,18 @@ export default function Page() {
             <Image src="/phone-template.png" fill alt="phone template" />
           </AspectRatio>
           <div className="absolute inset-[2px] z-0 rounded-[24px] bg-zinc-900"></div>
+          <div className="absolute inset-[2px] z-10 rounded-[24px] shadow-[0_0_0_9999px_rgba(255,255,255,0.6)]"></div>
         </div>
 
         <Rnd
-          className=""
+          lockAspectRatio
+          resizeHandleClasses={{
+            bottomLeft: resizeHandleStyle,
+            bottomRight: resizeHandleStyle,
+            topLeft: resizeHandleStyle,
+            topRight: resizeHandleStyle,
+          }}
+          className="border-2 border-dashed border-primary"
           default={{
             x: 0,
             y: 0,
