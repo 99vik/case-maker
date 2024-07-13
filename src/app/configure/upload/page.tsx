@@ -23,7 +23,7 @@ export default function Page() {
   });
 
   function onDropAccepted(files: File[]) {
-    startUpload(files);
+    startUpload(files, { configurationId: undefined });
   }
 
   function onDropRejected(files: FileRejection[]) {
