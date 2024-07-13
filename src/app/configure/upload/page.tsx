@@ -1,15 +1,18 @@
 "use client";
 
+import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useUploadThing } from "@/utils/uploadthing";
-import { Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 
 export default function Page() {
   const [isDragOver, setIsDragOver] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const { toast } = useToast();
+
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onClientUploadComplete: ([data]) => {
       console.log(data);
@@ -19,6 +22,9 @@ export default function Page() {
         title: "Error has occurred while uploading.",
         variant: "destructive",
       });
+    },
+    onUploadProgress(p) {
+      setUploadProgress(p);
     },
   });
 
@@ -37,6 +43,7 @@ export default function Page() {
 
   return (
     <Dropzone
+      disabled={isUploading}
       onDragEnter={() => setIsDragOver(true)}
       onDragLeave={() => setIsDragOver(false)}
       onDropAccepted={onDropAccepted}
@@ -58,12 +65,24 @@ export default function Page() {
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center gap-1 text-foreground/70">
-            <ImageIcon size={24} />
-            <p>
-              <span className="font-semibold">Click or drag</span> to upload
-              image
-            </p>
-            <p className="text-xs text-muted-foreground">JPG, JPEG or PNG</p>
+            {isUploading ? (
+              <>
+                <LoaderCircle size={30} className="animate-spin text-primary" />
+                <p>Uploading your image..</p>
+                <Progress className="h-2 border" value={uploadProgress} />
+              </>
+            ) : (
+              <>
+                <ImageIcon size={24} />
+                <p>
+                  <span className="font-semibold">Click or drag</span> to upload
+                  image
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  JPG, JPEG or PNG
+                </p>
+              </>
+            )}
           </div>
         </div>
       )}
