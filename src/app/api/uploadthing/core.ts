@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { createConfiguration } from "@/db/queries";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import z from "zod";
@@ -15,13 +16,11 @@ export const ourFileRouter = {
       return { userEmail: user.email };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userEmail:", metadata.userEmail);
 
       console.log("file url", file.url);
-
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userEmail };
+      await createConfiguration(file.url, metadata.userEmail!);
+      return { url: file.url };
     }),
 } satisfies FileRouter;
 

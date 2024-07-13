@@ -7,9 +7,11 @@ import {
 
 export const createTable = pgTableCreator((name) => `casemaker_${name}`);
 
-export const order = createTable("order", {
+export const configuration = createTable("configuration", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 256 }).notNull(),
-  createdAt: timestamp("created_at"),
-  updatedAt: timestamp("updated_at"),
+  userEmail: varchar("user_email", { length: 256 }).notNull(),
+  imgUrl: varchar("image_url").notNull(),
+  croppedImgUrl: varchar("cropped_image_url"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
