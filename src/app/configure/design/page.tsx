@@ -2,6 +2,7 @@
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import ImageComponent from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
@@ -46,11 +47,6 @@ export default function Page() {
     x: 235,
     y: (445 - 230 / aspect) / 2,
   });
-
-  useEffect(() => {
-    // console.log(designContainer.current!.getBoundingClientRect().left);
-    // console.log(phoneContainer.current!.getBoundingClientRect().left);
-  }, []);
 
   async function saveConfiguration() {
     const canvas = document.createElement("canvas");
@@ -117,7 +113,6 @@ export default function Page() {
               x: position.x,
               y: position.y,
             });
-            // console.log(position);
           }}
           onDragStop={(_, data) =>
             setImagePosition({
@@ -150,7 +145,22 @@ export default function Page() {
           />
         </Rnd>
       </div>
-      <div className="rounded-xl border bg-background">
+      <div className="space-y-3 rounded-xl border bg-background p-4">
+        <h2 className="text-2xl font-semibold leading-tight">
+          Customize your case
+        </h2>
+        <div className="h-[1px] w-full bg-muted-foreground/20" />
+        <div className="space-y-2">
+          <p className="text-sm font-semibold">Color: </p>
+          <RadioGroup defaultValue="comfortable">
+            <div className="flex items-center space-x-3">
+              <RadioGroupItem value="black" id="r1" className="bg-zinc-800" />
+              <RadioGroupItem value="red" id="r2" className="bg-red-800" />
+              <RadioGroupItem value="blue" id="r3" className="bg-blue-900" />
+              <RadioGroupItem value="green" id="r3" className="bg-green-800" />
+            </div>
+          </RadioGroup>
+        </div>
         <Button onClick={() => saveConfiguration()}>Continue</Button>
       </div>
     </div>
