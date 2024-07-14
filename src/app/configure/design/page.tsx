@@ -2,9 +2,16 @@
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import ImageComponent from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
@@ -145,24 +152,63 @@ export default function Page() {
           />
         </Rnd>
       </div>
-      <div className="space-y-3 rounded-xl border bg-background p-4">
-        <h2 className="text-2xl font-semibold leading-tight">
-          Customize your case
-        </h2>
-        <div className="h-[1px] w-full bg-muted-foreground/20" />
-        <div className="space-y-2">
-          <p className="text-sm font-semibold">Color: </p>
-          <RadioGroup defaultValue="comfortable">
-            <div className="flex items-center space-x-3">
-              <RadioGroupItem value="black" id="r1" className="bg-zinc-800" />
-              <RadioGroupItem value="red" id="r2" className="bg-red-800" />
-              <RadioGroupItem value="blue" id="r3" className="bg-blue-900" />
-              <RadioGroupItem value="green" id="r3" className="bg-green-800" />
-            </div>
-          </RadioGroup>
+      <ScrollArea className="h-[calc(100vh-56.8px-80px-68px-48px)] rounded-xl border bg-background py-2">
+        <div className="space-y-4 px-4">
+          <h2 className="border-b py-2 text-2xl font-semibold leading-tight">
+            Customize your case
+          </h2>
+
+          <div className="space-y-2">
+            <p className="text-sm font-semibold">Color: </p>
+            <RadioGroup defaultValue="comfortable">
+              <div className="flex items-center space-x-3">
+                <RadioGroupItem value="black" id="r1" className="bg-zinc-800" />
+                <RadioGroupItem value="red" id="r2" className="bg-red-800" />
+                <RadioGroupItem value="blue" id="r3" className="bg-blue-900" />
+                <RadioGroupItem
+                  value="green"
+                  id="r3"
+                  className="bg-green-800"
+                />
+              </div>
+            </RadioGroup>
+          </div>
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="w-full rounded-lg border py-2 text-sm">
+                iPhone 15
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem>
+                <DropdownMenuItem>Subscription</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div className="space-y-2 text-sm">
+            <p className="font-semibold">Case type: </p>
+            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
+              Basic
+            </button>
+            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
+              Protective
+            </button>
+          </div>
+          <div className="space-y-2 text-sm">
+            <p className="text-sm font-semibold">Finish: </p>
+            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
+              Matte
+            </button>
+            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
+              Glossy
+            </button>
+          </div>
+          <Button className="w-full" onClick={() => saveConfiguration()}>
+            Continue
+          </Button>
         </div>
-        <Button onClick={() => saveConfiguration()}>Continue</Button>
-      </div>
+      </ScrollArea>
     </div>
   );
 }
