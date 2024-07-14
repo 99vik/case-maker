@@ -13,6 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ImageComponent from "next/image";
 import { useRef, useState } from "react";
 import { Rnd } from "react-rnd";
+import { CASE_TYPE, COLORS, FINISH, MODELS } from "./configuration-options";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 const mockImg = {
@@ -162,14 +163,13 @@ export default function Page() {
             <p className="text-sm font-semibold">Color: </p>
             <RadioGroup defaultValue="comfortable">
               <div className="flex items-center space-x-3">
-                <RadioGroupItem value="black" id="r1" className="bg-zinc-800" />
-                <RadioGroupItem value="red" id="r2" className="bg-red-800" />
-                <RadioGroupItem value="blue" id="r3" className="bg-blue-900" />
-                <RadioGroupItem
-                  value="green"
-                  id="r3"
-                  className="bg-green-800"
-                />
+                {COLORS.map((color) => (
+                  <RadioGroupItem
+                    key={color.value}
+                    value={color.value}
+                    className={color.twClass}
+                  />
+                ))}
               </div>
             </RadioGroup>
           </div>
@@ -178,31 +178,49 @@ export default function Page() {
               <DropdownMenuTrigger className="w-full rounded-lg border py-2 text-sm">
                 iPhone 15
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+              <DropdownMenuContent className="min-w-full">
+                {MODELS.map((model) => {
+                  return (
+                    <DropdownMenuItem key={model.value}>
+                      {model.label}
+                    </DropdownMenuItem>
+                  );
+                })}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
           <div className="space-y-2 text-sm">
             <p className="font-semibold">Case type: </p>
-            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
-              Basic
-            </button>
-            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
-              Protective
-            </button>
+            {CASE_TYPE.map((type) => {
+              return (
+                <button
+                  key={type.value}
+                  className="flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide"
+                >
+                  <div>
+                    <p className="text-base">{type.label}</p>
+                    <p className="opacity-70">{type.description}</p>
+                  </div>
+                  <p className="text-base">${type.price.toFixed(1)}</p>
+                </button>
+              );
+            })}
           </div>
           <div className="space-y-2 text-sm">
             <p className="text-sm font-semibold">Finish: </p>
-            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
-              Matte
-            </button>
-            <button className="w-full rounded-lg border bg-secondary px-4 py-2 tracking-wide">
-              Glossy
-            </button>
+            {FINISH.map((finish) => {
+              return (
+                <button
+                  key={finish.value}
+                  className="flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide"
+                >
+                  <div>
+                    <p className="text-base">{finish.label}</p>
+                  </div>
+                  <p className="text-base">${finish.price.toFixed(1)}</p>
+                </button>
+              );
+            })}
           </div>
           <Button className="w-full" onClick={() => saveConfiguration()}>
             Continue
