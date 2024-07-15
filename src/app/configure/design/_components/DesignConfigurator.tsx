@@ -32,6 +32,8 @@ export default function DesignConfigurator({
   const phoneContainer = useRef<HTMLDivElement | null>(null);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [selectedModel, setSelectedModel] = useState(MODELS[0]);
+  const [selectedCaseType, setSelectedCaseType] = useState(CASE_TYPE[0]);
+  const [selectedFinish, setSelectedFinish] = useState(FINISH[0]);
 
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
@@ -207,8 +209,12 @@ export default function DesignConfigurator({
             {CASE_TYPE.map((type) => {
               return (
                 <button
+                  onClick={() => setSelectedCaseType(type)}
                   key={type.value}
-                  className="flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide"
+                  className={cn(
+                    "flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide transition",
+                    selectedCaseType === type && "border-primary",
+                  )}
                 >
                   <div>
                     <p className="text-base">{type.label}</p>
@@ -224,8 +230,12 @@ export default function DesignConfigurator({
             {FINISH.map((finish) => {
               return (
                 <button
+                  onClick={() => setSelectedFinish(finish)}
                   key={finish.value}
-                  className="flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide"
+                  className={cn(
+                    "flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide transition",
+                    selectedFinish === finish && "border-primary",
+                  )}
                 >
                   <div>
                     <p className="text-base">{finish.label}</p>
