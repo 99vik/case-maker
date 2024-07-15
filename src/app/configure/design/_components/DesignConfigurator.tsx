@@ -16,7 +16,7 @@ import { Rnd } from "react-rnd";
 
 import { cn, dataUrlToFile } from "@/lib/utils";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
-import { ColorT } from "@/lib/types";
+import { Check, ChevronDown } from "lucide-react";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 
@@ -30,7 +30,9 @@ export default function DesignConfigurator({
 }) {
   const designContainer = useRef<HTMLDivElement | null>(null);
   const phoneContainer = useRef<HTMLDivElement | null>(null);
-  const [selectedColor, setSelectedColor] = useState<ColorT>(COLORS[0]);
+  const [selectedColor, setSelectedColor] = useState(COLORS[0]);
+  const [selectedModel, setSelectedModel] = useState(MODELS[0]);
+
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
     height: number;
@@ -177,13 +179,22 @@ export default function DesignConfigurator({
           </div>
           <div>
             <DropdownMenu>
-              <DropdownMenuTrigger className="w-full rounded-lg border py-2 text-sm">
-                iPhone 15
+              <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg border px-6 py-2 text-sm">
+                {selectedModel.label}
+                <ChevronDown className="text-muted-foreground" size={18} />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="min-w-full">
                 {MODELS.map((model) => {
                   return (
-                    <DropdownMenuItem key={model.value}>
+                    <DropdownMenuItem
+                      className="flex items-center gap-2"
+                      onSelect={() => setSelectedModel(model)}
+                      key={model.value}
+                    >
+                      <Check
+                        size={16}
+                        className={selectedModel === model ? "" : "opacity-0"}
+                      />
                       {model.label}
                     </DropdownMenuItem>
                   );
