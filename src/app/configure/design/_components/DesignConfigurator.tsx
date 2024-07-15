@@ -14,8 +14,9 @@ import ImageComponent from "next/image";
 import { useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 
-import { dataUrlToFile } from "@/lib/utils";
+import { cn, dataUrlToFile } from "@/lib/utils";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
+import { ColorT } from "@/lib/types";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 
@@ -29,6 +30,7 @@ export default function DesignConfigurator({
 }) {
   const designContainer = useRef<HTMLDivElement | null>(null);
   const phoneContainer = useRef<HTMLDivElement | null>(null);
+  const [selectedColor, setSelectedColor] = useState<ColorT>(COLORS[0]);
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
     height: number;
@@ -61,7 +63,6 @@ export default function DesignConfigurator({
       (phoneContainer.current!.getBoundingClientRect().top -
         designContainer.current!.getBoundingClientRect().top);
 
-    // console.log(imageDimensions);
     image.onload = () => {
       ctx!.drawImage(
         image,
@@ -96,7 +97,12 @@ export default function DesignConfigurator({
               alt="phone template"
             />
           </AspectRatio>
-          <div className="absolute inset-[2px] z-0 rounded-[24px] bg-zinc-900"></div>
+          <div
+            className={cn(
+              "absolute inset-[2px] z-0 rounded-[24px]",
+              selectedColor.twClass,
+            )}
+          ></div>
           <div className="absolute inset-[2px] z-10 rounded-[24px] shadow-[0_0_0_9999px_rgba(255,255,255,0.6)]"></div>
         </div>
         <Rnd
@@ -148,8 +154,16 @@ export default function DesignConfigurator({
           </h2>
 
           <div className="space-y-2">
-            <p className="text-sm font-semibold">Color: </p>
-            <RadioGroup defaultValue="comfortable">
+            <p className="text-sm font-semibold">
+              Color: {selectedColor.label}
+            </p>
+            <RadioGroup
+              onValueChange={(value) => {
+                const color = COLORS.find((color) => color.value === value);
+                setSelectedColor(color!);
+              }}
+              defaultValue={selectedColor.value}
+            >
               <div className="flex items-center space-x-3">
                 {COLORS.map((color) => (
                   <RadioGroupItem
@@ -189,7 +203,7 @@ export default function DesignConfigurator({
                     <p className="text-base">{type.label}</p>
                     <p className="opacity-70">{type.description}</p>
                   </div>
-                  <p className="text-base">${type.price.toFixed(1)}</p>
+                  <p className="mt-px">${type.price.toFixed(2)}</p>
                 </button>
               );
             })}
@@ -205,7 +219,7 @@ export default function DesignConfigurator({
                   <div>
                     <p className="text-base">{finish.label}</p>
                   </div>
-                  <p className="text-base">${finish.price.toFixed(1)}</p>
+                  <p className="mt-px">${finish.price.toFixed(2)}</p>
                 </button>
               );
             })}

@@ -2,12 +2,12 @@ export const COLORS = [
   {
     label: "Black",
     value: "black",
-    twClass: "bg-zinc-800",
+    twClass: "bg-zinc-900",
   },
   {
     label: "Red",
     value: "red",
-    twClass: "bg-red-800",
+    twClass: "bg-red-900",
   },
   {
     label: "Blue",
@@ -17,7 +17,7 @@ export const COLORS = [
   {
     label: "Green",
     value: "green",
-    twClass: "bg-green-800",
+    twClass: "bg-green-900",
   },
 ];
 
