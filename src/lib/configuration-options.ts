@@ -59,7 +59,7 @@ export const CASE_TYPE = [
     label: "Protective",
     value: "protective",
     description: "Hard scratch-resistant case",
-    price: 10.0,
+    price: 8.0,
   },
 ];
 

@@ -16,7 +16,7 @@ import { Rnd } from "react-rnd";
 
 import { cn, dataUrlToFile } from "@/lib/utils";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, MoveRight } from "lucide-react";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 
@@ -245,8 +245,14 @@ export default function DesignConfigurator({
               );
             })}
           </div>
-          <Button className="w-full" onClick={() => saveConfiguration()}>
+          <div className="h-px w-full bg-zinc-300" />
+          <p className="font-semibold">
+            Price: $
+            {(11.99 + selectedFinish.price + selectedCaseType.price).toFixed(2)}
+          </p>
+          <Button className="w-full gap-2" onClick={() => saveConfiguration()}>
             Continue
+            <MoveRight size={16} />
           </Button>
         </div>
       </ScrollArea>
