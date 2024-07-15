@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useUploadThing } from "@/utils/uploadthing";
 import { Image as ImageIcon, LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 
@@ -12,10 +13,11 @@ export default function Page() {
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const { toast } = useToast();
+  const router = useRouter();
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onClientUploadComplete: ([data]) => {
-      console.log(data);
+      router.push(`/configure/design?id=${data.serverData.id}`);
     },
     onUploadError: () => {
       toast({

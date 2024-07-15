@@ -16,11 +16,11 @@ export const ourFileRouter = {
       return { userEmail: user.email };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userEmail:", metadata.userEmail);
-
-      console.log("file url", file.url);
-      await createConfiguration(file.url, metadata.userEmail!);
-      return { url: file.url };
+      const [configId] = await createConfiguration(
+        file.url,
+        metadata.userEmail!,
+      );
+      return configId;
     }),
 } satisfies FileRouter;
 
