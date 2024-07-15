@@ -99,6 +99,9 @@ importers:
       '@types/node':
         specifier: ^20.14.9
         version: 20.14.9
+      '@types/probe-image-size':
+        specifier: ^7.2.4
+        version: 7.2.4
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -967,11 +970,17 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
+  '@types/needle@3.3.0':
+    resolution: {integrity: sha512-UFIuc1gdyzAqeVUYpSL+cliw2MmU/ZUhVZKE7Zo4wPbgc8hbljeKSnn6ls6iG8r5jpegPXLUIhJ+Wb2kLVs8cg==}
+
   '@types/node@20.14.9':
     resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
 
   '@types/pg@8.11.6':
     resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
+
+  '@types/probe-image-size@7.2.4':
+    resolution: {integrity: sha512-HVqYj3L+D+S/6qpQRv5qMxrD/5pglzZuhP7ZIqgVSZ+Ck4z1TCFkNIRG8WesFueQTqWFTSgkkAl6f8lwxFPQSw==}
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -3496,6 +3505,10 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
+  '@types/needle@3.3.0':
+    dependencies:
+      '@types/node': 20.14.9
+
   '@types/node@20.14.9':
     dependencies:
       undici-types: 5.26.5
@@ -3505,6 +3518,11 @@ snapshots:
       '@types/node': 20.14.9
       pg-protocol: 1.6.1
       pg-types: 4.0.2
+
+  '@types/probe-image-size@7.2.4':
+    dependencies:
+      '@types/needle': 3.3.0
+      '@types/node': 20.14.9
 
   '@types/prop-types@15.7.12': {}
 

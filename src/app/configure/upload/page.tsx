@@ -12,11 +12,13 @@ import Dropzone, { FileRejection } from "react-dropzone";
 export default function Page() {
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadFinished, setUploadFinished] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onClientUploadComplete: ([data]) => {
+      setUploadFinished(true);
       router.push(`/configure/design?id=${data.serverData.id}`);
     },
     onUploadError: () => {
@@ -67,7 +69,12 @@ export default function Page() {
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center gap-1 text-foreground/70">
-            {isUploading ? (
+            {uploadFinished ? (
+              <>
+                <LoaderCircle size={30} className="animate-spin text-primary" />
+                <p>Upload succesfull, redirecting..</p>
+              </>
+            ) : isUploading ? (
               <>
                 <LoaderCircle size={30} className="animate-spin text-primary" />
                 <p>Uploading your image..</p>
