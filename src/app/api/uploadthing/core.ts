@@ -3,6 +3,7 @@ import { createConfiguration } from "@/db/queries";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import z from "zod";
+import probe from "probe-image-size";
 
 const f = createUploadthing();
 
@@ -16,10 +17,13 @@ export const ourFileRouter = {
       return { userEmail: user.email };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      const [configId] = await createConfiguration(
-        file.url,
-        metadata.userEmail!,
-      );
+      const { width, height } = await probe(file.url);
+
+      const [configId] = await createConfiguration({
+        url: file.url,
+        email: metadata.userEmail!,
+        aspectRatio: width / height,
+      });
       return configId;
     }),
 } satisfies FileRouter;

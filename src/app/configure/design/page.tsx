@@ -5,14 +5,6 @@ import { auth } from "@/auth";
 import { notFound, redirect } from "next/navigation";
 import { isValidUUID } from "@/lib/utils";
 
-const image = {
-  width: 1080,
-  height: 1920,
-  src: "/testimonials/4.png",
-};
-
-const aspect = image.width / image.height;
-
 export default async function Page({
   searchParams,
 }: {
@@ -37,5 +29,9 @@ export default async function Page({
   if (!configuration) notFound();
   console.log(configuration);
 
-  return <DesignConfigurator img={{ aspect: aspect, src: image.src }} />;
+  return (
+    <DesignConfigurator
+      img={{ aspect: configuration.aspectRatio, src: configuration.imgUrl }}
+    />
+  );
 }
