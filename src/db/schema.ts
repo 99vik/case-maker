@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 
 export const createTable = pgTableCreator((name) => `casemaker_${name}`);
 
-export const configuration = createTable("configuration", {
+export const configurations = createTable("configurations", {
   id: uuid("uuid")
     .default(sql`gen_random_uuid()`)
     .primaryKey(),

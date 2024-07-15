@@ -1,16 +1,14 @@
 import { db } from ".";
-import { configuration } from "./schema";
-
-type configuration = typeof configuration.$inferInsert;
+import { configurations } from "./schema";
 
 export async function createConfiguration(url: string, email: string) {
   const configId = await db
-    .insert(configuration)
+    .insert(configurations)
     .values({
       imgUrl: url,
       userEmail: email,
     })
-    .returning({ id: configuration.id });
+    .returning({ id: configurations.id });
 
   return configId;
 }
