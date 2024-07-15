@@ -151,101 +151,105 @@ export default function DesignConfigurator({
           />
         </Rnd>
       </div>
-      <ScrollArea className="h-[calc(100vh-56.8px-80px-68px-48px)] rounded-xl border bg-background py-2">
-        <div className="space-y-4 px-4">
-          <h2 className="border-b py-2 text-2xl font-semibold leading-tight">
-            Customize your case
-          </h2>
+      <div className="flex h-[calc(100vh-56.8px-80px-68px-48px)] flex-col rounded-xl border bg-background">
+        <ScrollArea className="py-2">
+          <div className="space-y-4 px-4">
+            <h2 className="border-b py-1 text-2xl font-semibold leading-tight">
+              Customize your case
+            </h2>
 
-          <div className="space-y-2">
-            <p className="text-sm font-semibold">
-              Color: {selectedColor.label}
-            </p>
-            <RadioGroup
-              onValueChange={(value) => {
-                const color = COLORS.find((color) => color.value === value);
-                setSelectedColor(color!);
-              }}
-              defaultValue={selectedColor.value}
-            >
-              <div className="flex items-center space-x-3">
-                {COLORS.map((color) => (
-                  <RadioGroupItem
-                    key={color.value}
-                    value={color.value}
-                    className={color.twClass}
-                  />
-                ))}
-              </div>
-            </RadioGroup>
+            <div className="space-y-2">
+              <p className="text-sm font-semibold">
+                Color: {selectedColor.label}
+              </p>
+              <RadioGroup
+                onValueChange={(value) => {
+                  const color = COLORS.find((color) => color.value === value);
+                  setSelectedColor(color!);
+                }}
+                defaultValue={selectedColor.value}
+              >
+                <div className="flex items-center space-x-3">
+                  {COLORS.map((color) => (
+                    <RadioGroupItem
+                      key={color.value}
+                      value={color.value}
+                      className={color.twClass}
+                    />
+                  ))}
+                </div>
+              </RadioGroup>
+            </div>
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg border px-6 py-2 text-sm">
+                  {selectedModel.label}
+                  <ChevronDown className="text-muted-foreground" size={18} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="min-w-full">
+                  {MODELS.map((model) => {
+                    return (
+                      <DropdownMenuItem
+                        className="flex items-center gap-2"
+                        onSelect={() => setSelectedModel(model)}
+                        key={model.value}
+                      >
+                        <Check
+                          size={16}
+                          className={selectedModel === model ? "" : "opacity-0"}
+                        />
+                        {model.label}
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div className="space-y-2 text-sm">
+              <p className="font-semibold">Case type: </p>
+              {CASE_TYPE.map((type) => {
+                return (
+                  <button
+                    onClick={() => setSelectedCaseType(type)}
+                    key={type.value}
+                    className={cn(
+                      "flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide transition",
+                      selectedCaseType === type && "border-primary",
+                    )}
+                  >
+                    <div>
+                      <p className="text-base">{type.label}</p>
+                      <p className="opacity-70">{type.description}</p>
+                    </div>
+                    <p className="mt-px">${type.price.toFixed(2)}</p>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="space-y-2 text-sm">
+              <p className="text-sm font-semibold">Finish: </p>
+              {FINISH.map((finish) => {
+                return (
+                  <button
+                    onClick={() => setSelectedFinish(finish)}
+                    key={finish.value}
+                    className={cn(
+                      "flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide transition",
+                      selectedFinish === finish && "border-primary",
+                    )}
+                  >
+                    <div>
+                      <p className="text-base">{finish.label}</p>
+                    </div>
+                    <p className="mt-px">${finish.price.toFixed(2)}</p>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <div>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg border px-6 py-2 text-sm">
-                {selectedModel.label}
-                <ChevronDown className="text-muted-foreground" size={18} />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-full">
-                {MODELS.map((model) => {
-                  return (
-                    <DropdownMenuItem
-                      className="flex items-center gap-2"
-                      onSelect={() => setSelectedModel(model)}
-                      key={model.value}
-                    >
-                      <Check
-                        size={16}
-                        className={selectedModel === model ? "" : "opacity-0"}
-                      />
-                      {model.label}
-                    </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <div className="space-y-2 text-sm">
-            <p className="font-semibold">Case type: </p>
-            {CASE_TYPE.map((type) => {
-              return (
-                <button
-                  onClick={() => setSelectedCaseType(type)}
-                  key={type.value}
-                  className={cn(
-                    "flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide transition",
-                    selectedCaseType === type && "border-primary",
-                  )}
-                >
-                  <div>
-                    <p className="text-base">{type.label}</p>
-                    <p className="opacity-70">{type.description}</p>
-                  </div>
-                  <p className="mt-px">${type.price.toFixed(2)}</p>
-                </button>
-              );
-            })}
-          </div>
-          <div className="space-y-2 text-sm">
-            <p className="text-sm font-semibold">Finish: </p>
-            {FINISH.map((finish) => {
-              return (
-                <button
-                  onClick={() => setSelectedFinish(finish)}
-                  key={finish.value}
-                  className={cn(
-                    "flex w-full items-start justify-between rounded-lg border bg-secondary px-8 py-2 text-left tracking-wide transition",
-                    selectedFinish === finish && "border-primary",
-                  )}
-                >
-                  <div>
-                    <p className="text-base">{finish.label}</p>
-                  </div>
-                  <p className="mt-px">${finish.price.toFixed(2)}</p>
-                </button>
-              );
-            })}
-          </div>
-          <div className="h-px w-full bg-zinc-300" />
+        </ScrollArea>
+        <div className="h-px w-full bg-zinc-300" />
+        <div className="space-y-1 px-4 py-2">
           <p className="font-semibold">
             Price: $
             {(11.99 + selectedFinish.price + selectedCaseType.price).toFixed(2)}
@@ -255,7 +259,7 @@ export default function DesignConfigurator({
             <MoveRight size={16} />
           </Button>
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 }
