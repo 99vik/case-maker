@@ -56,6 +56,7 @@ export default function DesignConfigurator({
     canvas.width = phoneContainer.current!.clientWidth;
     const ctx = canvas.getContext("2d");
     const image = new Image();
+    image.crossOrigin = "anonymous";
     image.src = img.src;
 
     const sourceX =
