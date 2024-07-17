@@ -15,7 +15,7 @@ export default function Phone({
   return (
     <div
       className={cn(
-        "pointer-events-none relative select-none overflow-hidden",
+        "pointer-events-none relative select-none overflow-hidden rounded-[34px]",
         className,
       )}
     >
