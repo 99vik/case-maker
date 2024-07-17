@@ -15,8 +15,8 @@ const STEPS = [
     url: "/design",
   },
   {
-    title: "Step 3: Summary",
-    description: "Review your case.",
+    title: "Step 3: Review",
+    description: "Review your case design.",
     url: "/review",
   },
 ];

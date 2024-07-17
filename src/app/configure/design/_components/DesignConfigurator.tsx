@@ -21,6 +21,8 @@ import { useMutation } from "@tanstack/react-query";
 import { saveCaseConfiguration } from "@/actions";
 import { SaveConfigType } from "@/lib/types";
 import { useUploadThing } from "@/utils/uploadthing";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 
@@ -54,11 +56,26 @@ export default function DesignConfigurator({
     x: 235,
     y: (445 - 230 / img.aspect) / 2,
   });
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const { mutate: saveConfiguration, isPending } = useMutation({
     mutationKey: ["configuration"],
     mutationFn: async (args: SaveConfigType) => {
       await Promise.all([saveCaseConfiguration(args), saveCroppedImage()]);
+    },
+    onError: () => {
+      toast({
+        title: "Something went wrong.",
+        description:
+          "There was an error while configuring your case, please try again.",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      setIsRedirecting(true);
+      router.push(`/configure/review?id=${configId}`);
     },
   });
 
@@ -94,10 +111,17 @@ export default function DesignConfigurator({
 
     const dataUrl = canvas.toDataURL("image/png");
     const file = dataUrlToFile(dataUrl);
-    console.log(dataUrl);
-    console.log(file);
 
-    await startUpload([file], { configId: configId });
+    try {
+      await startUpload([file], { configId: configId });
+    } catch (error) {
+      toast({
+        title: "Something went wrong.",
+        description:
+          "There was an error while configuring your case, please try again.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -273,7 +297,7 @@ export default function DesignConfigurator({
           </p>
           <Button
             className="w-full gap-2"
-            disabled={isPending}
+            disabled={isPending || isRedirecting}
             onClick={() =>
               saveConfiguration({
                 configId: configId,
@@ -284,7 +308,7 @@ export default function DesignConfigurator({
               })
             }
           >
-            {isPending ? (
+            {isPending || isRedirecting ? (
               <>
                 Saving...
                 <LoaderCircle className="animate-spin" size={16} />

@@ -19,7 +19,7 @@ export default function Page() {
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onClientUploadComplete: ([data]) => {
       setUploadFinished(true);
-      router.push(`/configure/design?id=${data.serverData.id}`);
+      router.push(`/configure/design?id=${data.serverData!.id}`);
     },
     onUploadError: () => {
       toast({
