@@ -4,27 +4,38 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import z from "zod";
 import probe from "probe-image-size";
+import { db } from "@/db";
+import { configurations } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 const f = createUploadthing();
 
 export const ourFileRouter = {
   imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
-    .input(z.object({ configurationId: z.string().optional() }))
-    .middleware(async () => {
+    .input(z.object({ configId: z.string().optional() }))
+    .middleware(async ({ input }) => {
       const session = await auth();
       const user = session?.user;
       if (!user) throw new UploadThingError("Unauthorized");
-      return { userEmail: user.email };
+      return { userEmail: user.email, configId: input.configId };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      const { width, height } = await probe(file.url);
-
-      const [configId] = await createConfiguration({
-        url: file.url,
-        email: metadata.userEmail!,
-        aspectRatio: width / height,
-      });
-      return configId;
+      if (!metadata.configId) {
+        const { width, height } = await probe(file.url);
+        const [configId] = await createConfiguration({
+          url: file.url,
+          email: metadata.userEmail!,
+          aspectRatio: width / height,
+        });
+        return configId;
+      } else {
+        await db
+          .update(configurations)
+          .set({
+            croppedImgUrl: file.url,
+          })
+          .where(eq(configurations.id, metadata.configId));
+      }
     }),
 } satisfies FileRouter;
 

@@ -14,6 +14,7 @@ export const caseColorEnum = pgEnum("caseColor", [
   "blue",
   "green",
 ]);
+
 export const caseModelEnum = pgEnum("caseModel", [
   "iphone15pro",
   "iphone15",

@@ -16,10 +16,11 @@ import { Rnd } from "react-rnd";
 
 import { cn, dataUrlToFile } from "@/lib/utils";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
-import { Check, ChevronDown, MoveRight } from "lucide-react";
+import { Check, ChevronDown, LoaderCircle, MoveRight } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { saveCaseConfiguration } from "@/actions";
 import { SaveConfigType } from "@/lib/types";
+import { useUploadThing } from "@/utils/uploadthing";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 
@@ -39,7 +40,6 @@ export default function DesignConfigurator({
   const [selectedModel, setSelectedModel] = useState(MODELS[0]);
   const [selectedCaseType, setSelectedCaseType] = useState(CASE_TYPE[0]);
   const [selectedFinish, setSelectedFinish] = useState(FINISH[0]);
-
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
     height: number;
@@ -55,13 +55,14 @@ export default function DesignConfigurator({
     y: (445 - 230 / img.aspect) / 2,
   });
 
-  const { mutate: saveConfiguration } = useMutation({
+  const { mutate: saveConfiguration, isPending } = useMutation({
     mutationKey: ["configuration"],
     mutationFn: async (args: SaveConfigType) => {
-      console.log(args);
       await Promise.all([saveCaseConfiguration(args), saveCroppedImage()]);
     },
   });
+
+  const { startUpload } = useUploadThing("imageUploader");
 
   async function saveCroppedImage() {
     const canvas = document.createElement("canvas");
@@ -81,20 +82,22 @@ export default function DesignConfigurator({
       (phoneContainer.current!.getBoundingClientRect().top -
         designContainer.current!.getBoundingClientRect().top);
 
-    image.onload = () => {
-      ctx!.drawImage(
-        image,
-        sourceX,
-        sourceY,
-        imageDimensions.width,
-        imageDimensions.height,
-      );
+    await new Promise((resolve) => (image.onload = resolve));
 
-      const dataUrl = canvas.toDataURL("image/png");
-      console.log(dataUrl);
-      const file = dataUrlToFile(dataUrl);
-      console.log(file);
-    };
+    ctx!.drawImage(
+      image,
+      sourceX,
+      sourceY,
+      imageDimensions.width,
+      imageDimensions.height,
+    );
+
+    const dataUrl = canvas.toDataURL("image/png");
+    const file = dataUrlToFile(dataUrl);
+    console.log(dataUrl);
+    console.log(file);
+
+    await startUpload([file], { configId: configId });
   }
 
   return (
@@ -270,6 +273,7 @@ export default function DesignConfigurator({
           </p>
           <Button
             className="w-full gap-2"
+            disabled={isPending}
             onClick={() =>
               saveConfiguration({
                 configId: configId,
@@ -280,8 +284,17 @@ export default function DesignConfigurator({
               })
             }
           >
-            Continue
-            <MoveRight size={16} />
+            {isPending ? (
+              <>
+                Saving...
+                <LoaderCircle className="animate-spin" size={16} />
+              </>
+            ) : (
+              <>
+                Continue
+                <MoveRight size={16} />
+              </>
+            )}
           </Button>
         </div>
       </div>
