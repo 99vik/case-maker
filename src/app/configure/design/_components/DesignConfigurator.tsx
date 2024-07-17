@@ -51,6 +51,10 @@ export default function DesignConfigurator({
   });
 
   async function saveConfiguration() {
+    await saveCroppedImage();
+  }
+
+  async function saveCroppedImage() {
     const canvas = document.createElement("canvas");
     canvas.height = phoneContainer.current!.clientHeight;
     canvas.width = phoneContainer.current!.clientWidth;

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import Providers from "@/components/Providers";
 
 const nunito = Nunito({
   weight: "500",
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("bg-secondary", nunito.className)}>
-        <Navbar />
-        <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
-          {children}
-        </main>
-        <Footer />
-        <Toaster />
+        <Providers>
+          <Navbar />
+          <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
+            {children}
+          </main>
+          <Footer />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
