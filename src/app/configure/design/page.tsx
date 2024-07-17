@@ -27,7 +27,6 @@ export default async function Page({
       ),
   });
   if (!configuration) notFound();
-  console.log(configuration);
 
   return (
     <DesignConfigurator

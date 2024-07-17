@@ -17,6 +17,9 @@ import { Rnd } from "react-rnd";
 import { cn, dataUrlToFile } from "@/lib/utils";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
 import { Check, ChevronDown, MoveRight } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { saveCaseConfiguration } from "@/actions";
+import { SaveConfigType } from "@/lib/types";
 
 const resizeHandleStyle = "rounded-full bg-foreground";
 
@@ -50,9 +53,13 @@ export default function DesignConfigurator({
     y: (445 - 230 / img.aspect) / 2,
   });
 
-  async function saveConfiguration() {
-    await saveCroppedImage();
-  }
+  const { mutate: saveConfiguration } = useMutation({
+    mutationKey: ["configuration"],
+    mutationFn: async (args: SaveConfigType) => {
+      console.log(args);
+      await Promise.all([saveCaseConfiguration(args), saveCroppedImage()]);
+    },
+  });
 
   async function saveCroppedImage() {
     const canvas = document.createElement("canvas");
@@ -259,7 +266,17 @@ export default function DesignConfigurator({
             Price: $
             {(11.99 + selectedFinish.price + selectedCaseType.price).toFixed(2)}
           </p>
-          <Button className="w-full gap-2" onClick={() => saveConfiguration()}>
+          <Button
+            className="w-full gap-2"
+            onClick={() =>
+              saveConfiguration({
+                color: selectedColor.value as SaveConfigType["color"],
+                model: selectedModel.value as SaveConfigType["model"],
+                caseType: selectedCaseType.value as SaveConfigType["caseType"],
+                finish: selectedFinish.value as SaveConfigType["finish"],
+              })
+            }
+          >
             Continue
             <MoveRight size={16} />
           </Button>
