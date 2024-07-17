@@ -1,10 +1,8 @@
-import { db } from "@/db";
-import { and } from "drizzle-orm";
-import DesignConfigurator from "./_components/DesignConfigurator";
 import { auth } from "@/auth";
-import { notFound, redirect } from "next/navigation";
-import { isValidUUID } from "@/lib/utils";
 import { getConfiguration } from "@/db/queries";
+import { isValidUUID } from "@/lib/utils";
+import { notFound, redirect } from "next/navigation";
+import DesignConfigurator from "./_components/DesignConfigurator";
 
 export default async function Page({
   searchParams,
