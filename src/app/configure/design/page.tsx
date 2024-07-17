@@ -4,6 +4,7 @@ import DesignConfigurator from "./_components/DesignConfigurator";
 import { auth } from "@/auth";
 import { notFound, redirect } from "next/navigation";
 import { isValidUUID } from "@/lib/utils";
+import { getConfiguration } from "@/db/queries";
 
 export default async function Page({
   searchParams,
@@ -19,17 +20,15 @@ export default async function Page({
   if (!user) redirect("/signin");
   if (!configId || !isValidUUID(configId)) notFound();
 
-  const configuration = await db.query.configurations.findFirst({
-    where: (configuration, { eq }) =>
-      and(
-        eq(configuration.id, configId),
-        eq(configuration.userEmail, user.email!),
-      ),
+  const configuration = await getConfiguration({
+    configId: configId,
+    userEmail: user.email!,
   });
   if (!configuration) notFound();
 
   return (
     <DesignConfigurator
+      configId={configuration.id}
       img={{ aspect: configuration.aspectRatio, src: configuration.imgUrl }}
     />
   );

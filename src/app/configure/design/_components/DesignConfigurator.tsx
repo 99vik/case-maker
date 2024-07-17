@@ -24,8 +24,10 @@ import { SaveConfigType } from "@/lib/types";
 const resizeHandleStyle = "rounded-full bg-foreground";
 
 export default function DesignConfigurator({
+  configId,
   img,
 }: {
+  configId: string;
   img: {
     aspect: number;
     src: string;
@@ -270,6 +272,7 @@ export default function DesignConfigurator({
             className="w-full gap-2"
             onClick={() =>
               saveConfiguration({
+                configId: configId,
                 color: selectedColor.value as SaveConfigType["color"],
                 model: selectedModel.value as SaveConfigType["model"],
                 caseType: selectedCaseType.value as SaveConfigType["caseType"],

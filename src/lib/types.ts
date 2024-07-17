@@ -6,6 +6,7 @@ import {
 } from "@/db/schema";
 
 export interface SaveConfigType {
+  configId: string;
   color: (typeof caseColorEnum.enumValues)[number];
   model: (typeof caseModelEnum.enumValues)[number];
   caseType: (typeof caseTypeEnum.enumValues)[number];
