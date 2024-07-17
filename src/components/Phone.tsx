@@ -5,10 +5,12 @@ export default function Phone({
   className,
   dark = false,
   imgSrc,
+  backgroundColor,
 }: {
   className?: string;
   dark?: boolean;
   imgSrc: string;
+  backgroundColor?: string;
 }) {
   return (
     <div
@@ -26,6 +28,15 @@ export default function Phone({
         className="pointer-events-none z-50 select-none"
         alt="phone image"
       />
+      {backgroundColor && (
+        <div
+          className={cn(
+            "absolute inset-[2px] -z-20 rounded-[24px]",
+            backgroundColor,
+          )}
+        ></div>
+      )}
+
       <div className="absolute inset-[1px] -z-10">
         <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />
       </div>

@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { isValidUUID } from "@/lib/utils";
 import { getConfiguration } from "@/db/queries";
 import Phone from "@/components/Phone";
+import { COLORS } from "@/lib/configuration-options";
 
 export default async function Page({
   searchParams,
@@ -28,8 +29,14 @@ export default async function Page({
 
   return (
     <div>
-      {" "}
-      <Phone className="w-52 md:w-60" imgSrc={configuration.croppedImgUrl} />
+      <Phone
+        className="w-52 md:w-60"
+        backgroundColor={
+          COLORS.find((color) => color.value === configuration.caseColor)!
+            .twClass
+        }
+        imgSrc={configuration.croppedImgUrl}
+      />
     </div>
   );
 }
