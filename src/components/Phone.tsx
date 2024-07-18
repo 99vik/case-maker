@@ -20,11 +20,7 @@ export default function Phone({
       )}
     >
       <img
-        src={
-          dark
-            ? "/phone-template-dark-edges.png"
-            : "/phone-template-white-edges.png"
-        }
+        src={"/phone-template.png"}
         className="pointer-events-none z-50 select-none"
         alt="phone image"
       />
@@ -37,7 +33,7 @@ export default function Phone({
         ></div>
       )}
 
-      <div className="absolute inset-[1px] -z-10">
+      <div className="absolute inset-x-[4px] inset-y-[2px] -z-10 overflow-hidden rounded-[32px]">
         <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />
       </div>
     </div>
