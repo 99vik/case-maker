@@ -11,7 +11,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ImageComponent from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 
 import { cn, dataUrlToFile } from "@/lib/utils";
@@ -57,6 +57,13 @@ export default function DesignConfigurator({
     y: (445 - 230 / img.aspect) / 2,
   });
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    console.log(designContainer.current?.offsetWidth);
+  }, []);
+
   const { toast } = useToast();
   const router = useRouter();
 
@@ -125,10 +132,10 @@ export default function DesignConfigurator({
   }
 
   return (
-    <div className="my-6 grid w-full grid-cols-3 gap-2">
+    <div className="my-6 w-full grid-cols-3 gap-2 max-lg:space-y-4 lg:grid">
       <div
         ref={designContainer}
-        className="relative col-span-2 flex items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-zinc-300 bg-background"
+        className="relative col-span-2 flex items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-zinc-300 bg-background max-lg:py-6"
       >
         <div
           ref={phoneContainer}
@@ -150,47 +157,49 @@ export default function DesignConfigurator({
           ></div>
           <div className="absolute inset-[2px] z-10 rounded-[24px] shadow-[0_0_0_9999px_rgba(255,255,255,0.6)]"></div>
         </div>
-        <Rnd
-          onResizeStop={(_, __, ref, ___, position) => {
-            setImageDimensions({
-              width: ref.clientWidth,
-              height: ref.clientHeight,
-            });
-            setImagePosition({
-              x: position.x,
-              y: position.y,
-            });
-          }}
-          onDragStop={(_, data) =>
-            setImagePosition({
-              x: data.x,
-              y: data.y,
-            })
-          }
-          lockAspectRatio
-          resizeHandleClasses={{
-            bottomLeft: resizeHandleStyle,
-            bottomRight: resizeHandleStyle,
-            topLeft: resizeHandleStyle,
-            topRight: resizeHandleStyle,
-          }}
-          className="border-2 border-dashed border-primary"
-          default={{
-            x: 235,
-            y: (445 - 230 / img.aspect) / 2,
-            width: 230,
-            height: 230 / img.aspect,
-          }}
-        >
-          <ImageComponent
-            priority
-            alt="img"
-            className="pointer-events-none select-none"
-            src={img.src}
-            sizes="50vw"
-            fill
-          />
-        </Rnd>
+        {isClient && (
+          <Rnd
+            onResizeStop={(_, __, ref, ___, position) => {
+              setImageDimensions({
+                width: ref.clientWidth,
+                height: ref.clientHeight,
+              });
+              setImagePosition({
+                x: position.x,
+                y: position.y,
+              });
+            }}
+            onDragStop={(_, data) =>
+              setImagePosition({
+                x: data.x,
+                y: data.y,
+              })
+            }
+            lockAspectRatio
+            resizeHandleClasses={{
+              bottomLeft: resizeHandleStyle,
+              bottomRight: resizeHandleStyle,
+              topLeft: resizeHandleStyle,
+              topRight: resizeHandleStyle,
+            }}
+            className="border-2 border-dashed border-primary"
+            default={{
+              x: designContainer.current!.offsetWidth / 2 - 115,
+              y: designContainer.current!.offsetHeight / 2 - 115 / img.aspect,
+              width: 230,
+              height: 230 / img.aspect,
+            }}
+          >
+            <ImageComponent
+              priority
+              alt="img"
+              className="pointer-events-none select-none"
+              src={img.src}
+              sizes="50vw"
+              fill
+            />
+          </Rnd>
+        )}
       </div>
       <div className="flex h-[calc(100vh-56.8px-80px-68px-48px)] flex-col rounded-xl border bg-background">
         <ScrollArea className="py-2">

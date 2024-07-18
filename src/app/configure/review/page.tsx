@@ -29,7 +29,7 @@ export default async function Page({
     redirect(`/configure/design?id=${configId}`);
 
   return (
-    <div className="flex w-full gap-8 py-12">
+    <div className="flex w-full gap-12 py-12">
       <div>
         <Phone
           className="w-52"
@@ -42,11 +42,12 @@ export default async function Page({
       </div>
       <div className="h-full flex-1 space-y-1">
         <h1 className="text-3xl font-semibold">
-          Your{" "}
+          Your custom{" "}
           {
             MODELS.find((model) => model.value === configuration.caseModel)
               ?.label
-          }
+          }{" "}
+          case
         </h1>
         <div className="flex items-center gap-1">
           <Check size={18} className="text-primary" />
@@ -81,7 +82,7 @@ export default async function Page({
                 }
               </li>
               <li>
-                Protection:{" "}
+                Case type:{" "}
                 {
                   CASE_TYPE.find(
                     (type) => type.value === configuration.caseType,
@@ -102,15 +103,15 @@ export default async function Page({
         <div className="w-full space-y-1 border-b py-2">
           <div className="flex justify-between">
             <p>Base price</p>
-            <p>${(10).toFixed(2)}</p>
+            <p>${(11.99).toFixed(2)}</p>
           </div>
           <div className="flex justify-between">
             <p>
-              Protection:{" "}
               {
                 CASE_TYPE.find((type) => type.value === configuration.caseType)!
                   .label
-              }
+              }{" "}
+              case
             </p>
             <p>
               $
@@ -121,12 +122,12 @@ export default async function Page({
           </div>
           <div className="flex justify-between">
             <p>
-              Finish:{" "}
               {
                 FINISH.find(
                   (finish) => finish.value === configuration.caseFinish,
                 )!.label
-              }
+              }{" "}
+              finish
             </p>
             <p>
               $
@@ -142,7 +143,7 @@ export default async function Page({
             <p>
               $
               {(
-                10 +
+                11.99 +
                 CASE_TYPE.find((type) => type.value === configuration.caseType)!
                   .price +
                 FINISH.find(
