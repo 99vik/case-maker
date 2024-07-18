@@ -33,7 +33,7 @@ export default function Phone({
         ></div>
       )}
 
-      <div className="absolute inset-x-[4px] inset-y-[2px] -z-10 overflow-hidden rounded-[32px]">
+      <div className="absolute inset-x-[3px] inset-y-[2px] -z-10 overflow-hidden rounded-[30px]">
         <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />
       </div>
     </div>

@@ -138,7 +138,7 @@ export default function DesignConfigurator({
     <div className="my-6 w-full grid-cols-3 gap-2 max-lg:space-y-4 lg:grid">
       <div
         ref={designContainer}
-        className="relative col-span-2 flex items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-zinc-300 bg-background max-lg:py-6"
+        className="relative col-span-2 flex items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-zinc-300 bg-background dark:border-zinc-700 max-lg:py-6"
       >
         <div
           ref={phoneContainer}
@@ -158,7 +158,7 @@ export default function DesignConfigurator({
               selectedColor.twClass,
             )}
           ></div>
-          <div className="absolute inset-[2px] z-10 rounded-[24px] shadow-[0_0_0_9999px_rgba(255,255,255,0.6)]"></div>
+          <div className="absolute inset-[2px] z-10 rounded-[24px] shadow-[0_0_0_9999px_rgba(255,255,255,0.6)] dark:shadow-[0_0_0_9999px_rgba(120,120,120,0.6)]"></div>
         </div>
         {isClient && (
           <Rnd
@@ -301,7 +301,7 @@ export default function DesignConfigurator({
             </div>
           </div>
         </ScrollArea>
-        <div className="h-px w-full bg-zinc-300" />
+        <div className="h-px w-full bg-zinc-300 dark:bg-zinc-700" />
         <div className="space-y-1 px-4 py-2">
           <p className="font-semibold">
             Price: $

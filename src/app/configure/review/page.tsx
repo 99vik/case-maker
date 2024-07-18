@@ -68,7 +68,7 @@ export default async function Page({
           <Check size={18} className="text-primary" />
           <p>In stock and ready for shipping</p>
         </div>
-        <div className="flex flex-col justify-between space-y-6 border-b pb-4 md:flex-row md:space-y-0 lg:pt-5">
+        <div className="flex flex-col justify-between space-y-6 border-b border-zinc-300 pb-4 dark:border-zinc-700 md:flex-row md:space-y-0 lg:pt-5">
           <div className="space-y-1">
             <h2 className="font-semibold">Properties</h2>
             <ul className="list-inside list-disc space-y-1 text-foreground/80">
@@ -115,7 +115,7 @@ export default async function Page({
             </ul>
           </div>
         </div>
-        <div className="w-full space-y-1 border-b py-2">
+        <div className="w-full space-y-1 border-b border-zinc-300 py-2 dark:border-zinc-700">
           <div className="flex justify-between">
             <p>Base price</p>
             <p>${(11.99).toFixed(2)}</p>

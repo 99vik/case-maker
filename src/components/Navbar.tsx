@@ -32,7 +32,7 @@ export default async function Navbar() {
                 </Button>
               </Link>
             )}
-            <div className="h-10 w-px bg-zinc-200" />
+            <div className="h-10 w-px bg-zinc-200 dark:bg-zinc-700" />
             <Link href="/configure/upload">
               <Button size="sm" className="text-md flex gap-2">
                 Create case

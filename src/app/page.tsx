@@ -279,7 +279,7 @@ export default function Home() {
           <div className="relative flex flex-col gap-14 md:gap-20 min-[820px]:flex-row min-[820px]:gap-32">
             <img
               src="/testimonials/7.png"
-              className="w-36 rounded-sm shadow-lg shadow-zinc-500 md:w-56"
+              className="w-36 rounded-sm shadow-lg shadow-muted-foreground md:w-56"
             />
             <img
               src="/arrow.png"
