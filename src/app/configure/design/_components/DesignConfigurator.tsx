@@ -65,7 +65,7 @@ export default function DesignConfigurator({
       x: designContainer.current!.offsetWidth / 2 - 115,
       y: designContainer.current!.offsetHeight / 2 - 115 / img.aspect,
     });
-  }, []);
+  }, [img.aspect]);
 
   const { toast } = useToast();
   const router = useRouter();
