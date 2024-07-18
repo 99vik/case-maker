@@ -53,15 +53,18 @@ export default function DesignConfigurator({
     x: number;
     y: number;
   }>({
-    x: 235,
-    y: (445 - 230 / img.aspect) / 2,
+    x: 0,
+    y: 0,
   });
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-    console.log(designContainer.current?.offsetWidth);
+    setImagePosition({
+      x: designContainer.current!.offsetWidth / 2 - 115,
+      y: designContainer.current!.offsetHeight / 2 - 115 / img.aspect,
+    });
   }, []);
 
   const { toast } = useToast();
