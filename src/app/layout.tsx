@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
-import Providers from "@/components/Providers";
+import QueryProvider from "@/components/QueryProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const nunito = Nunito({
   weight: "500",
@@ -23,16 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn("bg-secondary", nunito.className)}>
-        <Providers>
-          <Navbar />
-          <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
-            {children}
-          </main>
-          <Footer />
-          <Toaster />
-        </Providers>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <QueryProvider>
+            <Navbar />
+            <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
+              {children}
+            </main>
+            <Footer />
+            <Toaster />
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -9,7 +9,8 @@ import {
 import UserAvatar from "./UserAvatar";
 import { User } from "next-auth";
 import { signOut } from "@/auth";
-import { LogOut } from "lucide-react";
+import { LogOut, Smartphone } from "lucide-react";
+import DarkModeSwitch from "./DarkModeSwitch";
 
 export default function NavUserButton({ user }: { user: User }) {
   return (
@@ -23,6 +24,14 @@ export default function NavUserButton({ user }: { user: User }) {
           {user.email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
+        <DropdownMenuItem className="gap-2">
+          <Smartphone size={16} strokeWidth={1.5} />
+          My configurations
+        </DropdownMenuItem>
+        <DarkModeSwitch />
+
+        <DropdownMenuSeparator />
         <form
           action={async () => {
             "use server";
@@ -31,14 +40,13 @@ export default function NavUserButton({ user }: { user: User }) {
         >
           <DropdownMenuItem asChild>
             <button
-              className="flex h-full w-full items-center gap-1"
+              className="flex h-full w-full items-center gap-2"
               type="submit"
             >
               <LogOut size={16} strokeWidth={1.5} /> Sign out
             </button>
           </DropdownMenuItem>
         </form>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
