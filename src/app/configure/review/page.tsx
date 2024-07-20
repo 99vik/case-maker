@@ -8,6 +8,7 @@ import { Check, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createCheckoutSession } from "@/actions";
 import CreateCheckoutButton from "@/components/CreateCheckoutButton";
+import ConfettiComponent from "@/components/Confetti";
 
 export default async function Page({
   searchParams,
@@ -174,6 +175,7 @@ export default async function Page({
           <CreateCheckoutButton configId={configId} />
         </div>
       </div>
+      <ConfettiComponent />
     </div>
   );
 }
