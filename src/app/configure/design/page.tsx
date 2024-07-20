@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
+import DesignConfigurator from "@/components/DesignConfigurator";
 import { getConfiguration } from "@/db/queries";
 import { isValidUUID } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
-import DesignConfigurator from "./_components/DesignConfigurator";
 
 export default async function Page({
   searchParams,

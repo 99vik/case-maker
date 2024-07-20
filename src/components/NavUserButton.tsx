@@ -29,9 +29,7 @@ export default function NavUserButton({ user }: { user: User }) {
           <Smartphone size={16} strokeWidth={1.5} />
           My configurations
         </DropdownMenuItem>
-        <DarkModeSwitch />
 
-        <DropdownMenuSeparator />
         <form
           action={async () => {
             "use server";
@@ -47,6 +45,8 @@ export default function NavUserButton({ user }: { user: User }) {
             </button>
           </DropdownMenuItem>
         </form>
+        <DropdownMenuSeparator />
+        <DarkModeSwitch />
       </DropdownMenuContent>
     </DropdownMenu>
   );

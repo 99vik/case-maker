@@ -6,6 +6,8 @@ import Phone from "@/components/Phone";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
 import { Check, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createCheckoutSession } from "@/actions";
+import CreateCheckoutButton from "@/components/CreateCheckoutButton";
 
 export default async function Page({
   searchParams,
@@ -169,10 +171,7 @@ export default async function Page({
           </div>
         </div>
         <div className="flex justify-end pt-3">
-          <Button size="sm" className="gap-2 px-6">
-            Check out
-            <MoveRight size={16} />
-          </Button>
+          <CreateCheckoutButton configId={configId} />
         </div>
       </div>
     </div>

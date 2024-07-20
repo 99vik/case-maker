@@ -24,3 +24,24 @@ export async function saveCaseConfiguration({
 
   await updateCaseConfiguration({ configId, color, model, caseType, finish });
 }
+
+export async function createCheckoutSession({
+  configId,
+}: {
+  configId: string;
+}) {
+  const session = await auth();
+  const user = session?.user;
+
+  if (!user) throw new Error("Unauthorized");
+
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  const configuration = await getConfiguration({
+    configId: configId,
+    userEmail: user.email!,
+  });
+  if (!configuration) throw new Error("Invalid configuration.");
+
+  console.log(configuration);
+}
