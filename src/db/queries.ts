@@ -74,3 +74,19 @@ export async function createOrder({
     price: sql`${price}::numeric`,
   });
 }
+
+export async function updateOrder({
+  orderId,
+  price,
+}: {
+  orderId: string;
+  price: number;
+}) {
+  await db
+    .update(orders)
+    .set({
+      price: sql`${price}::numeric`,
+      updatedAt: sql`CURRENT_TIMESTAMP`,
+    })
+    .where(eq(orders.id, orderId));
+}

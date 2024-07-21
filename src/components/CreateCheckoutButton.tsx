@@ -6,12 +6,14 @@ import { createCheckoutSession } from "@/actions";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function CreateCheckoutButton({
   configId,
 }: {
   configId: string;
 }) {
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
   const { mutate, isPending } = useMutation({
@@ -25,18 +27,19 @@ export default function CreateCheckoutButton({
       });
     },
     onSuccess: ({ url }) => {
-      //   router.push(url!);
+      setIsRedirecting(true);
+      router.push(url!);
     },
   });
 
   return (
     <Button
-      disabled={isPending}
+      disabled={isPending || isRedirecting}
       onClick={() => mutate({ configId })}
       size="sm"
       className="w-40 gap-2"
     >
-      {isPending ? (
+      {isPending || isRedirecting ? (
         <>
           Checking out..
           <LoaderCircle className="animate-spin" size={16} />

@@ -5,6 +5,7 @@ import {
   createOrder,
   getConfiguration,
   updateCaseConfiguration,
+  updateOrder,
 } from "./db/queries";
 import { MODELS } from "./lib/configuration-options";
 import { stripe } from "./lib/stripe";
@@ -51,14 +52,17 @@ export async function createCheckoutSession({
   if (configuration.caseType === "protective") price += 800;
   if (configuration.caseFinish === "matte") price += 400;
 
-  // await createOrder({
-  //   configId: configId,
-  //   price: price / 100,
-  // });
-
-  console.log(configuration);
-
-  return { url: "test" };
+  if (!configuration.order) {
+    await createOrder({
+      configId: configId,
+      price: price / 100,
+    });
+  } else {
+    await updateOrder({
+      orderId: configuration.order.id,
+      price: price / 100,
+    });
+  }
 
   const stripeSession = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "paypal"],
@@ -76,8 +80,8 @@ export async function createCheckoutSession({
         quantity: 1,
       },
     ],
-    metadata: { configId: configId },
-    shipping_address_collection: { allowed_countries: ["HR"] },
+    metadata: { orderId: configuration.order!.id },
+    shipping_address_collection: { allowed_countries: ["HR", "DE"] },
     customer_email: user.email!,
     mode: "payment",
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you&orderId=${configuration.id}`,
