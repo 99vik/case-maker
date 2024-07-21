@@ -2,6 +2,7 @@
 
 import { auth } from "./auth";
 import { getConfiguration, updateCaseConfiguration } from "./db/queries";
+import { MODELS } from "./lib/configuration-options";
 import { stripe } from "./lib/stripe";
 import { SaveConfigType } from "./lib/types";
 
@@ -54,6 +55,7 @@ export async function createCheckoutSession({
           currency: "eur",
           product_data: {
             name: "Custom Phone Case",
+            description: `Custom Phone Case for ${MODELS.find((model) => configuration.caseModel === model.value)!.label}, with ${configuration.caseType} case type and ${configuration.caseFinish} finish.`,
             images: [configuration.imgUrl],
           },
           unit_amount: price,
@@ -61,6 +63,8 @@ export async function createCheckoutSession({
         quantity: 1,
       },
     ],
+    metadata: { configId: configId },
+    shipping_address_collection: { allowed_countries: ["HR"] },
     customer_email: user.email!,
     mode: "payment",
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you&orderId=${configuration.id}`,
