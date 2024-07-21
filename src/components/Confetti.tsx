@@ -19,10 +19,9 @@ export default function ConfettiComponent() {
   }, []);
 
   if (!ismounted) return null;
-  console.log(clientScreenSize);
   return (
     <Confetti
-      className="confeti pointer-events-none absolute left-0 top-0 h-full w-full select-none"
+      className="pointer-events-none absolute left-0 top-0 h-full w-full select-none"
       recycle={false}
       numberOfPieces={300}
       width={clientScreenSize.width}
