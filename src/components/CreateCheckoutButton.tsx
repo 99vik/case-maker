@@ -25,7 +25,7 @@ export default function CreateCheckoutButton({
       });
     },
     onSuccess: ({ url }) => {
-      router.push(url!);
+      //   router.push(url!);
     },
   });
 

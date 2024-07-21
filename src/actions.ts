@@ -1,7 +1,11 @@
 "use server";
 
 import { auth } from "./auth";
-import { getConfiguration, updateCaseConfiguration } from "./db/queries";
+import {
+  createOrder,
+  getConfiguration,
+  updateCaseConfiguration,
+} from "./db/queries";
 import { MODELS } from "./lib/configuration-options";
 import { stripe } from "./lib/stripe";
 import { SaveConfigType } from "./lib/types";
@@ -46,6 +50,15 @@ export async function createCheckoutSession({
   let price = 1199;
   if (configuration.caseType === "protective") price += 800;
   if (configuration.caseFinish === "matte") price += 400;
+
+  // await createOrder({
+  //   configId: configId,
+  //   price: price / 100,
+  // });
+
+  console.log(configuration);
+
+  return { url: "test" };
 
   const stripeSession = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "paypal"],

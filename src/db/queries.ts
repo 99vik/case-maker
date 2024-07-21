@@ -1,6 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { db } from ".";
-import { configurations } from "./schema";
+import { configurations, orders } from "./schema";
 import { SaveConfigType } from "@/lib/types";
 
 export async function createConfiguration({
@@ -37,6 +37,9 @@ export async function getConfiguration({
         eq(configuration.id, configId),
         eq(configuration.userEmail, userEmail!),
       ),
+    with: {
+      order: true,
+    },
   });
 }
 
@@ -57,4 +60,17 @@ export async function updateCaseConfiguration({
       updatedAt: sql`CURRENT_TIMESTAMP`,
     })
     .where(eq(configurations.id, configId));
+}
+
+export async function createOrder({
+  configId,
+  price,
+}: {
+  configId: string;
+  price: number;
+}) {
+  await db.insert(orders).values({
+    configurationId: configId,
+    price: sql`${price}::numeric`,
+  });
 }
