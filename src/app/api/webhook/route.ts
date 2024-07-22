@@ -1,3 +1,4 @@
+import { createShippingAddress, fullfillOrder } from "@/db/queries";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -27,7 +28,19 @@ export async function POST(request: Request) {
     const { orderId } = session.metadata as { orderId: string };
 
     const shippingDetails = session.shipping_details!;
-    console.log(shippingDetails);
+
+    const [{ id: shippingAddressId }] = await createShippingAddress({
+      name: shippingDetails.name!,
+      city: shippingDetails.address!.city!,
+      country: shippingDetails.address!.country!,
+      line1: shippingDetails.address!.line1!,
+      postalCode: shippingDetails.address!.postal_code!,
+    });
+
+    await fullfillOrder({
+      orderId,
+      shippingAddressId,
+    });
   }
 
   return NextResponse.json({ ok: true }, { status: 200 });

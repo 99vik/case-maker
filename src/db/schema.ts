@@ -72,7 +72,10 @@ export const orders = createTable("orders", {
   configurationId: uuid("configuration_id").references(() => configurations.id),
   price: numeric("price").notNull(),
   isPaid: boolean("is_paid").notNull().default(false),
-  status: orderStatusEnum("orderStatus").notNull().default("pending"),
+  status: orderStatusEnum("order_status").notNull().default("pending"),
+  shippingAddressId: uuid("shipping_address_id").references(
+    () => shippingAddress.id,
+  ),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -82,8 +85,16 @@ export const ordersRelations = relations(orders, ({ one }) => ({
     fields: [orders.configurationId],
     references: [configurations.id],
   }),
+  shippingAddress: one(shippingAddress, {
+    fields: [orders.shippingAddressId],
+    references: [shippingAddress.id],
+  }),
 }));
 
 export const configurationsRelations = relations(configurations, ({ one }) => ({
+  order: one(orders),
+}));
+
+export const shippingAdressRelation = relations(shippingAddress, ({ one }) => ({
   order: one(orders),
 }));

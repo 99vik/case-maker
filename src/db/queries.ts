@@ -1,6 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { db } from ".";
-import { configurations, orders } from "./schema";
+import { configurations, orders, shippingAddress } from "./schema";
 import { SaveConfigType } from "@/lib/types";
 
 export async function createConfiguration({
@@ -69,10 +69,13 @@ export async function createOrder({
   configId: string;
   price: number;
 }) {
-  await db.insert(orders).values({
-    configurationId: configId,
-    price: sql`${price}::numeric`,
-  });
+  return await db
+    .insert(orders)
+    .values({
+      configurationId: configId,
+      price: sql`${price}::numeric`,
+    })
+    .returning({ id: orders.id });
 }
 
 export async function updateOrder({
@@ -87,6 +90,50 @@ export async function updateOrder({
     .set({
       price: sql`${price}::numeric`,
       updatedAt: sql`CURRENT_TIMESTAMP`,
+    })
+    .where(eq(orders.id, orderId));
+}
+
+export async function createShippingAddress({
+  name,
+  city,
+  country,
+  line1,
+  postalCode,
+}: {
+  name: string;
+  city: string;
+  country: string;
+  line1: string;
+  postalCode: string;
+}) {
+  const shippingAddressId = await db
+    .insert(shippingAddress)
+    .values({
+      name,
+      city,
+      country,
+      line1,
+      postalCode,
+    })
+    .returning({ id: shippingAddress.id });
+
+  return shippingAddressId;
+}
+
+export async function fullfillOrder({
+  orderId,
+  shippingAddressId,
+}: {
+  orderId: string;
+  shippingAddressId: string;
+}) {
+  await db
+    .update(orders)
+    .set({
+      shippingAddressId: shippingAddressId,
+      isPaid: true,
+      status: "processing",
     })
     .where(eq(orders.id, orderId));
 }

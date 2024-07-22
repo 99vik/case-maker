@@ -52,16 +52,19 @@ export async function createCheckoutSession({
   if (configuration.caseType === "protective") price += 800;
   if (configuration.caseFinish === "matte") price += 400;
 
+  let orderId: string;
   if (!configuration.order) {
-    await createOrder({
+    const result = await createOrder({
       configId: configId,
       price: price / 100,
     });
+    orderId = result[0].id;
   } else {
     await updateOrder({
       orderId: configuration.order.id,
       price: price / 100,
     });
+    orderId = configuration.order.id;
   }
 
   const stripeSession = await stripe.checkout.sessions.create({
@@ -80,7 +83,7 @@ export async function createCheckoutSession({
         quantity: 1,
       },
     ],
-    metadata: { orderId: configuration.order!.id },
+    metadata: { orderId: orderId },
     shipping_address_collection: { allowed_countries: ["HR", "DE"] },
     customer_email: user.email!,
     mode: "payment",
