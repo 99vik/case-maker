@@ -121,6 +121,20 @@ export async function createShippingAddress({
   return shippingAddressId;
 }
 
+export async function getOrder({ orderId }: { orderId: string }) {
+  return await db.query.orders.findFirst({
+    with: {
+      shippingAddress: true,
+      configuration: {
+        columns: {
+          userEmail: true,
+        },
+      },
+    },
+    where: eq(orders.id, orderId),
+  });
+}
+
 export async function fullfillOrder({
   orderId,
   shippingAddressId,

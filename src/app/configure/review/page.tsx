@@ -4,9 +4,7 @@ import { isValidUUID } from "@/lib/utils";
 import { getConfiguration } from "@/db/queries";
 import Phone from "@/components/Phone";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
-import { Check, MoveRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { createCheckoutSession } from "@/actions";
+import { Check } from "lucide-react";
 import CreateCheckoutButton from "@/components/CreateCheckoutButton";
 import ConfettiComponent from "@/components/Confetti";
 

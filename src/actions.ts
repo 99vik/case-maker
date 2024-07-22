@@ -87,7 +87,7 @@ export async function createCheckoutSession({
     shipping_address_collection: { allowed_countries: ["HR", "DE"] },
     customer_email: user.email!,
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you&orderId=${configuration.id}`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${configuration.id}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/review?id=${configuration.id}`,
   });
 
