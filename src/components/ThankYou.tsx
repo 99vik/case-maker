@@ -19,7 +19,17 @@ export default function ThankYou({ orderId }: { orderId: string }) {
 
   console.log(orderData);
 
-  if (!orderData || orderData.status === "pending") {
+  if (!orderData) {
+    return (
+      <FullWidthWrapper className="flex flex-1 items-center justify-center">
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <LoaderCircle size={40} className="animate-spin text-primary" />
+          <h1 className="text-3xl font-semibold">Loading order...</h1>
+        </div>
+      </FullWidthWrapper>
+    );
+  }
+  if (orderData.status === "pending") {
     return (
       <FullWidthWrapper className="flex flex-1 items-center justify-center">
         <div className="flex flex-col items-center justify-center space-y-2">

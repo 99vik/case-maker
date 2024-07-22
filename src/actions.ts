@@ -108,7 +108,5 @@ export async function getOrderStatus({ orderId }: { orderId: string }) {
   if (!order || order.configuration?.userEmail !== user.email!)
     throw new Error("Unauthorized");
 
-  // if (order.status === "pending") throw new Error("Order not found.");
-
   return order;
 }
