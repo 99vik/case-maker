@@ -7,6 +7,7 @@ import {
   pgEnum,
   boolean,
   numeric,
+  line,
 } from "drizzle-orm/pg-core";
 import { relations, sql } from "drizzle-orm";
 
@@ -51,6 +52,17 @@ export const configurations = createTable("configurations", {
   caseFinish: caseFinishEnum("caseFinish"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const shippingAddress = createTable("shipping_address", {
+  id: uuid("uuid")
+    .default(sql`gen_random_uuid()`)
+    .primaryKey(),
+  name: varchar("name").notNull(),
+  city: varchar("city").notNull(),
+  country: varchar("country").notNull(),
+  line1: varchar("line1").notNull(),
+  postalCode: varchar("postal_code").notNull(),
 });
 
 export const orders = createTable("orders", {
