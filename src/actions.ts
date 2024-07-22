@@ -4,6 +4,7 @@ import { auth } from "./auth";
 import {
   createOrder,
   getConfiguration,
+  getOrder,
   updateCaseConfiguration,
   updateOrder,
 } from "./db/queries";
@@ -87,9 +88,27 @@ export async function createCheckoutSession({
     shipping_address_collection: { allowed_countries: ["HR", "DE"] },
     customer_email: user.email!,
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${configuration.id}`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?id=${orderId}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/review?id=${configuration.id}`,
   });
 
   return { url: stripeSession.url };
+}
+
+export async function getOrderStatus({ orderId }: { orderId: string }) {
+  const session = await auth();
+  const user = session?.user;
+
+  if (!user) throw new Error("Unauthorized");
+
+  const order = await getOrder({
+    orderId: orderId,
+  });
+
+  if (!order || order.configuration?.userEmail !== user.email!)
+    throw new Error("Unauthorized");
+
+  // if (order.status === "pending") throw new Error("Order not found.");
+
+  return order;
 }

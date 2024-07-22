@@ -1,3 +1,5 @@
+import "server-only";
+
 import { and, eq, sql } from "drizzle-orm";
 import { db } from ".";
 import { configurations, orders, shippingAddress } from "./schema";
@@ -125,11 +127,7 @@ export async function getOrder({ orderId }: { orderId: string }) {
   return await db.query.orders.findFirst({
     with: {
       shippingAddress: true,
-      configuration: {
-        columns: {
-          userEmail: true,
-        },
-      },
+      configuration: true,
     },
     where: eq(orders.id, orderId),
   });

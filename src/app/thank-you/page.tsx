@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import ThankYou from "@/components/ThankYou";
 import { getOrder } from "@/db/queries";
 import { isValidUUID } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
@@ -17,16 +18,5 @@ export default async function Page({
   if (!user) redirect("/signin");
   if (!orderId || !isValidUUID(orderId)) notFound();
 
-  const order = await getOrder({
-    orderId: orderId,
-  });
-
-  if (!order || order.configuration?.userEmail !== user.email!) notFound();
-
-  console.log(order);
-  return (
-    <div>
-      <p>thanh you</p>
-    </div>
-  );
+  return <ThankYou orderId={orderId} />;
 }
