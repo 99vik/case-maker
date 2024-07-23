@@ -171,7 +171,7 @@ export default async function Page({
           </div>
         </div>
         <div className="flex justify-end pt-3">
-          <CreateCheckoutButton configId={configId} />
+          <CreateCheckoutButton user={user} configId={configId} />
         </div>
       </div>
     </div>
