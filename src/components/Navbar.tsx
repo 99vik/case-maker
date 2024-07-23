@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { auth } from "@/auth";
 import MobileNav from "./MobileNav";
 import NavUserButton from "./NavUserButton";
+import SigninButton from "./SigninButton";
 
 export default async function Navbar() {
   const session = await auth();
@@ -19,19 +20,7 @@ export default async function Navbar() {
           </Link>
           <MobileNav user={user} />
           <div className="hidden items-center space-x-5 md:flex">
-            {user ? (
-              <NavUserButton user={user} />
-            ) : (
-              <Link href="/signin">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="text-md text-zinc-700"
-                >
-                  Sign In
-                </Button>
-              </Link>
-            )}
+            {user ? <NavUserButton user={user} /> : <SigninButton />}
             <div className="h-10 w-px bg-zinc-200 dark:bg-zinc-700" />
             <Link href="/configure/upload">
               <Button size="sm" className="text-md flex gap-2">
