@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getOrderStatus } from "@/actions";
 import ConfettiComponent from "./Confetti";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
+import Phone from "./Phone";
 
 export default function ThankYou({ orderId }: { orderId: string }) {
   const { data: orderData } = useQuery({
@@ -47,7 +48,7 @@ export default function ThankYou({ orderId }: { orderId: string }) {
     );
   }
   return (
-    <FullWidthWrapper className="space-y-6 px-4 py-6 sm:px-32 md:px-48 lg:py-12">
+    <FullWidthWrapper className="space-y-6 px-4 py-6 sm:px-20 md:px-36 lg:px-56 lg:py-12">
       <div>
         <p className="text-sm font-semibold text-primary">
           Thank you for your purchase!
@@ -57,17 +58,18 @@ export default function ThankYou({ orderId }: { orderId: string }) {
           Your order has been paid and is being processed.
         </p>
       </div>
-      <div className="text-sm text-muted-foreground">
+      <div className="space-y-1 text-sm text-muted-foreground">
+        <p>
+          Shipping notifications will be sent to:{" "}
+          <span className="font-semibold">
+            {orderData.configuration!.userEmail}
+          </span>
+        </p>
         <p>Order ID: {orderData.id}</p>
       </div>
-      <div className="h-px w-full bg-zinc-300 dark:bg-zinc-700" />
-      <p className="text-sm text-muted-foreground">
-        Shipping notifications will be sent to:{" "}
-        <span className="font-semibold">
-          {orderData.configuration!.userEmail}
-        </span>
-      </p>
-      <div className="flex justify-between">
+      <div className="h-px w-full bg-zinc-300 dark:bg-zinc-700"></div>
+
+      <div className="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0">
         <div className="space-y-1">
           <p className="font-semibold">Configuration details</p>
           <ul className="list-inside list-disc space-y-1 text-foreground/80">
@@ -117,6 +119,21 @@ export default function ThankYou({ orderId }: { orderId: string }) {
             <li>Address: {orderData.shippingAddress!.line1}</li>
           </ul>
         </div>
+      </div>
+      <div className="h-px w-full bg-zinc-300 dark:bg-zinc-700"></div>
+      <div className="flex flex-col items-center justify-center space-y-5">
+        <h2 className="text-2xl font-bold text-primary">
+          Your final case design
+        </h2>
+        <Phone
+          className="w-52 self-center"
+          backgroundColor={
+            COLORS.find(
+              (color) => color.value === orderData.configuration!.caseColor,
+            )!.twClass
+          }
+          imgSrc={orderData.configuration!.croppedImgUrl!}
+        />
       </div>
       <ConfettiComponent />
     </FullWidthWrapper>
