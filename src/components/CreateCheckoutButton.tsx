@@ -1,13 +1,11 @@
 "use client";
 
-import { LoaderCircle, MoveRight } from "lucide-react";
-import { Button } from "./ui/button";
 import { createCheckoutSession } from "@/actions";
 import { useMutation } from "@tanstack/react-query";
-import { useToast } from "./ui/use-toast";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { LoaderCircle, MoveRight } from "lucide-react";
 import { User } from "next-auth";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +17,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 
 export default function CreateCheckoutButton({
   configId,
@@ -29,6 +29,9 @@ export default function CreateCheckoutButton({
 }) {
   const [isRedirecting, setIsRedirecting] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const { toast } = useToast();
   const { mutate, isPending } = useMutation({
     mutationKey: ["checkout"],
@@ -85,7 +88,17 @@ export default function CreateCheckoutButton({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Sign in</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              localStorage.setItem(
+                "callbackUrl",
+                pathname + "?" + searchParams.toString(),
+              );
+              router.push("/signin");
+            }}
+          >
+            Sign in
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
