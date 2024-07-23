@@ -43,7 +43,11 @@ function Column({ images, y }: { images: string[]; y: MotionValue }) {
     <motion.div style={{ y }} className="space-y-4">
       {images.map((image, index) => (
         <div className="rounded-xl border bg-background p-2 md:p-4" key={index}>
-          <Phone imgSrc={image} className="z-50 w-24 sm:w-40 md:w-48 lg:w-64" />
+          <Phone
+            imgSrc={image}
+            smallerRadius={true}
+            className="z-50 w-24 sm:w-40 md:w-48 lg:w-64"
+          />
         </div>
       ))}
     </motion.div>

@@ -3,20 +3,21 @@ import Image from "next/image";
 
 export default function Phone({
   className,
-  dark = false,
   imgSrc,
   backgroundColor,
+  smallerRadius = false,
 }: {
   className?: string;
-  dark?: boolean;
   imgSrc: string;
   backgroundColor?: string;
+  smallerRadius?: boolean;
 }) {
   return (
     <div
       className={cn(
         "pointer-events-none relative select-none overflow-hidden rounded-[34px]",
         className,
+        smallerRadius && "rounded-[10px] md:rounded-[24px] lg:rounded-[30px]",
       )}
     >
       <img
@@ -26,14 +27,17 @@ export default function Phone({
       />
       {backgroundColor && (
         <div
-          className={cn(
-            "absolute inset-[2px] -z-20 rounded-[24px]",
-            backgroundColor,
-          )}
+          className={cn("absolute inset-[2px] -z-20", backgroundColor)}
         ></div>
       )}
 
-      <div className="absolute inset-x-[3px] inset-y-[2px] -z-10 overflow-hidden rounded-[30px]">
+      <div
+        className={cn(
+          "absolute inset-x-[1.5%] inset-y-[0.4%] -z-10 aspect-[890/1860] overflow-hidden rounded-[30px]",
+          smallerRadius &&
+            "rounded-[12px] sm:rounded-[20px] md:rounded-[24px] lg:rounded-[30px]",
+        )}
+      >
         <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />
       </div>
     </div>

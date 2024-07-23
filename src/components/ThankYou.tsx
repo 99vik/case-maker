@@ -4,6 +4,7 @@ import { Loader, LoaderCircle } from "lucide-react";
 import FullWidthWrapper from "./FullWidthWrapper";
 import { useQuery } from "@tanstack/react-query";
 import { getOrderStatus } from "@/actions";
+import ConfettiComponent from "./Confetti";
 
 export default function ThankYou({ orderId }: { orderId: string }) {
   const { data: orderData } = useQuery({
@@ -47,6 +48,7 @@ export default function ThankYou({ orderId }: { orderId: string }) {
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-3xl font-semibold">Thank you for your purchase!</h1>
+      <ConfettiComponent />
     </div>
   );
 }
