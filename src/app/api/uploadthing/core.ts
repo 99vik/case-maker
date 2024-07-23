@@ -16,15 +16,15 @@ export const ourFileRouter = {
     .middleware(async ({ input }) => {
       const session = await auth();
       const user = session?.user;
-      if (!user) throw new UploadThingError("Unauthorized");
-      return { userEmail: user.email, configId: input.configId };
+      // if (!user) throw new UploadThingError("Unauthorized");
+      return { userEmail: user?.email, configId: input.configId };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       if (!metadata.configId) {
         const { width, height } = await probe(file.url);
         const [configId] = await createConfiguration({
           url: file.url,
-          email: metadata.userEmail!,
+          email: metadata.userEmail,
           aspectRatio: width / height,
         });
         return configId;

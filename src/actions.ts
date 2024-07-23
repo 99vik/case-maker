@@ -6,6 +6,7 @@ import {
   getConfiguration,
   getOrder,
   updateCaseConfiguration,
+  updateCaseConfigurationUserEmail,
   updateOrder,
 } from "./db/queries";
 import { MODELS } from "./lib/configuration-options";
@@ -22,15 +23,22 @@ export async function saveCaseConfiguration({
   const session = await auth();
   const user = session?.user;
 
-  if (!user) throw new Error("Unauthorized");
-
   const configuration = await getConfiguration({
     configId: configId,
-    userEmail: user.email!,
   });
   if (!configuration) throw new Error("Invalid configuration.");
 
-  await updateCaseConfiguration({ configId, color, model, caseType, finish });
+  if (configuration.userEmail && configuration.userEmail !== user?.email)
+    throw new Error("Unauthorized.");
+
+  await updateCaseConfiguration({
+    configId,
+    color,
+    model,
+    caseType,
+    finish,
+    userEmail: user?.email,
+  });
 }
 
 export async function createCheckoutSession({
@@ -45,9 +53,18 @@ export async function createCheckoutSession({
 
   const configuration = await getConfiguration({
     configId: configId,
-    userEmail: user.email!,
   });
   if (!configuration) throw new Error("Invalid configuration.");
+
+  if (configuration.userEmail && configuration.userEmail !== user?.email)
+    throw new Error("Unauthorized");
+
+  if (!configuration.userEmail) {
+    await updateCaseConfigurationUserEmail({
+      configId,
+      userEmail: user.email!,
+    });
+  }
 
   let price = 1199;
   if (configuration.caseType === "protective") price += 800;

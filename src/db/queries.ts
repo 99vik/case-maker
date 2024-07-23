@@ -11,7 +11,7 @@ export async function createConfiguration({
   aspectRatio,
 }: {
   url: string;
-  email: string;
+  email?: string | null;
   aspectRatio: number;
 }) {
   const configId = await db
@@ -26,19 +26,10 @@ export async function createConfiguration({
   return configId;
 }
 
-export async function getConfiguration({
-  configId,
-  userEmail,
-}: {
-  configId: string;
-  userEmail: string;
-}) {
+export async function getConfiguration({ configId }: { configId: string }) {
   return await db.query.configurations.findFirst({
-    where: (configuration, { eq }) =>
-      and(
-        eq(configuration.id, configId),
-        eq(configuration.userEmail, userEmail!),
-      ),
+    where: (configuration, { eq }) => eq(configuration.id, configId),
+
     with: {
       order: true,
     },
@@ -51,6 +42,7 @@ export async function updateCaseConfiguration({
   model,
   caseType,
   finish,
+  userEmail,
 }: SaveConfigType) {
   await db
     .update(configurations)
@@ -59,6 +51,23 @@ export async function updateCaseConfiguration({
       caseModel: model,
       caseType: caseType,
       caseFinish: finish,
+      userEmail: userEmail,
+      updatedAt: sql`CURRENT_TIMESTAMP`,
+    })
+    .where(eq(configurations.id, configId));
+}
+
+export async function updateCaseConfigurationUserEmail({
+  configId,
+  userEmail,
+}: {
+  configId: string;
+  userEmail: string;
+}) {
+  await db
+    .update(configurations)
+    .set({
+      userEmail: userEmail,
       updatedAt: sql`CURRENT_TIMESTAMP`,
     })
     .where(eq(configurations.id, configId));

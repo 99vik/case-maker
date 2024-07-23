@@ -11,4 +11,5 @@ export interface SaveConfigType {
   model: (typeof caseModelEnum.enumValues)[number];
   caseType: (typeof caseTypeEnum.enumValues)[number];
   finish: (typeof caseFinishEnum.enumValues)[number];
+  userEmail?: string | null | undefined;
 }

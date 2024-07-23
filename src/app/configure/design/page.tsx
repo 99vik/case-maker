@@ -15,14 +15,15 @@ export default async function Page({
   const session = await auth();
   const user = session?.user;
 
-  if (!user) redirect("/signin");
   if (!configId || !isValidUUID(configId)) notFound();
 
   const configuration = await getConfiguration({
     configId: configId,
-    userEmail: user.email!,
   });
   if (!configuration) notFound();
+
+  if (configuration.userEmail && configuration.userEmail !== user?.email)
+    notFound();
 
   return (
     <DesignConfigurator

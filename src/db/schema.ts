@@ -42,7 +42,7 @@ export const configurations = createTable("configurations", {
   id: uuid("uuid")
     .default(sql`gen_random_uuid()`)
     .primaryKey(),
-  userEmail: varchar("user_email", { length: 256 }).notNull(),
+  userEmail: varchar("user_email", { length: 256 }),
   imgUrl: varchar("image_url").notNull(),
   aspectRatio: real("aspect_ratio").notNull(),
   croppedImgUrl: varchar("cropped_image_url"),

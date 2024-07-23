@@ -20,8 +20,6 @@ export default function ThankYou({ orderId }: { orderId: string }) {
     },
   });
 
-  console.log(orderData);
-
   if (!orderData) {
     return (
       <FullWidthWrapper className="flex flex-1 items-center justify-center">
