@@ -20,7 +20,7 @@ export default function SigninButton() {
         onClick={saveCallBackUrl}
         size="sm"
         variant="ghost"
-        className="text-md text-zinc-700"
+        className="text-md text-zinc-700 dark:text-zinc-300"
       >
         Sign In
       </Button>

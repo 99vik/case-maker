@@ -22,7 +22,7 @@ export default function Page() {
           Case<span className="text-primary">Maker</span>
         </p>
         <p className="text-muted-foreground">Please sign in to continue.</p>
-        <div className="mb-4 h-px w-full bg-muted-foreground" />
+        <div className="mb-4 h-px w-full bg-zinc-300 dark:bg-zinc-700" />
         <div className="flex flex-col gap-4">
           <Button
             size="lg"
@@ -42,7 +42,7 @@ export default function Page() {
             variant="ghost"
             onClick={() => {
               setLoading(true);
-              // signIn("github", { callbackUrl: callbackUrl });
+              signIn("google", { callbackUrl: callbackUrl });
             }}
           >
             <FaGoogle className="size-8" />
