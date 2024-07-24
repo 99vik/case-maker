@@ -41,9 +41,17 @@ export async function getUserConfigurations({
   userEmail: string;
 }) {
   return await db.query.configurations.findMany({
-    where: (configuration, { eq }) => eq(configuration.userEmail, userEmail),
+    where: (configuration, { eq, isNotNull }) =>
+      and(
+        eq(configuration.userEmail, userEmail),
+        isNotNull(configuration.croppedImgUrl),
+      ),
     with: {
-      order: true,
+      order: {
+        with: {
+          shippingAddress: true,
+        },
+      },
     },
   });
 }
