@@ -93,8 +93,8 @@ export default function DesignConfigurator({
 
   async function saveCroppedImage() {
     const canvas = document.createElement("canvas");
-    canvas.height = phoneContainer.current!.clientHeight;
-    canvas.width = phoneContainer.current!.clientWidth;
+    canvas.height = phoneContainer.current!.clientHeight * 2;
+    canvas.width = phoneContainer.current!.clientWidth * 2;
     const ctx = canvas.getContext("2d");
     const image = new Image();
     image.crossOrigin = "anonymous";
@@ -115,8 +115,8 @@ export default function DesignConfigurator({
       image,
       sourceX,
       sourceY,
-      imageDimensions.width,
-      imageDimensions.height,
+      imageDimensions.width * 2,
+      imageDimensions.height * 2,
     );
 
     const dataUrl = canvas.toDataURL("image/png");
