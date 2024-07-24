@@ -27,7 +27,10 @@ export default function Phone({
       />
       {backgroundColor && (
         <div
-          className={cn("absolute inset-[2px] -z-20", backgroundColor)}
+          className={cn(
+            "absolute inset-0 -z-20 rounded-[16px] sm:inset-px sm:rounded-[24px] md:rounded-[24px] lg:rounded-[22px]",
+            backgroundColor,
+          )}
         ></div>
       )}
 
@@ -35,7 +38,7 @@ export default function Phone({
         className={cn(
           "absolute inset-x-[1.5%] inset-y-[0.4%] -z-10 aspect-[890/1860] overflow-hidden rounded-[30px]",
           smallerRadius &&
-            "rounded-[12px] sm:rounded-[20px] md:rounded-[24px] lg:rounded-[30px]",
+            "rounded-[12px] sm:rounded-[18px] md:rounded-[22px] lg:rounded-[26px]",
         )}
       >
         <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />

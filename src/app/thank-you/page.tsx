@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import ThankYou from "@/components/ThankYou";
-import { getOrder } from "@/db/queries";
 import { isValidUUID } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
 

@@ -29,7 +29,19 @@ export async function createConfiguration({
 export async function getConfiguration({ configId }: { configId: string }) {
   return await db.query.configurations.findFirst({
     where: (configuration, { eq }) => eq(configuration.id, configId),
+    with: {
+      order: true,
+    },
+  });
+}
 
+export async function getUserConfigurations({
+  userEmail,
+}: {
+  userEmail: string;
+}) {
+  return await db.query.configurations.findMany({
+    where: (configuration, { eq }) => eq(configuration.userEmail, userEmail),
     with: {
       order: true,
     },

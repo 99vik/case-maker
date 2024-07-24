@@ -11,6 +11,7 @@ import { User } from "next-auth";
 import { signOut } from "@/auth";
 import { LogOut, Smartphone } from "lucide-react";
 import DarkModeSwitch from "./DarkModeSwitch";
+import Link from "next/link";
 
 export default function NavUserButton({ user }: { user: User }) {
   return (
@@ -25,9 +26,11 @@ export default function NavUserButton({ user }: { user: User }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="gap-2">
-          <Smartphone size={16} strokeWidth={1.5} />
-          My configurations
+        <DropdownMenuItem asChild>
+          <Link href="/my-configurations" className="gap-2">
+            <Smartphone size={16} strokeWidth={1.5} />
+            My configurations
+          </Link>
         </DropdownMenuItem>
 
         <form
