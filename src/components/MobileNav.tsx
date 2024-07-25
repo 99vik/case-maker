@@ -29,11 +29,12 @@ export default function MobileNav({ user }: { user: User | undefined }) {
           Small screen menu
         </DialogDescription>
         <SheetHeader>
-          <SheetTitle className="text-center">
+          <SheetTitle className="text-center text-2xl">
             Case<span className="text-primary">Maker</span>
           </SheetTitle>
         </SheetHeader>
-        <div className="mt-10 flex flex-col space-y-4">
+        <div className="mt-2 h-px w-full bg-zinc-300 dark:bg-zinc-700"></div>
+        <div className="mt-8 flex flex-col space-y-4">
           {user ? (
             <Button
               variant="ghost"

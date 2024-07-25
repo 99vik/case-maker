@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { LoaderCircle } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
@@ -17,39 +18,46 @@ export default function Page() {
 
   return (
     <div className="absolute top-0 flex h-screen w-screen items-center justify-center bg-secondary">
-      <div className="flex flex-col gap-1 rounded-xl bg-background p-12">
-        <p className="text-2xl font-bold">
-          Case<span className="text-primary">Maker</span>
-        </p>
-        <p className="text-muted-foreground">Please sign in to continue.</p>
-        <div className="mb-4 h-px w-full bg-zinc-300 dark:bg-zinc-700" />
-        <div className="flex flex-col gap-4">
-          <Button
-            size="lg"
-            className="gap-3 border border-foreground py-6 text-lg"
-            variant="ghost"
-            onClick={() => {
-              setLoading(true);
-              signIn("github", { callbackUrl: callbackUrl });
-            }}
-          >
-            <FaGithub className="size-8" />
-            Sign In with Github
-          </Button>
-          <Button
-            size="lg"
-            className="gap-3 border border-foreground py-6 text-lg"
-            variant="ghost"
-            onClick={() => {
-              setLoading(true);
-              signIn("google", { callbackUrl: callbackUrl });
-            }}
-          >
-            <FaGoogle className="size-8" />
-            Sign In with Google
-          </Button>
+      {loading ? (
+        <div className="flex gap-3">
+          <LoaderCircle size={36} className="animate-spin text-primary" />
+          <h1 className="text-3xl font-semibold">Please wait...</h1>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col gap-1 rounded-xl bg-background p-12">
+          <p className="text-2xl font-bold">
+            Case<span className="text-primary">Maker</span>
+          </p>
+          <p className="text-muted-foreground">Please sign in to continue.</p>
+          <div className="mb-4 h-px w-full bg-zinc-300 dark:bg-zinc-700" />
+          <div className="flex flex-col gap-4">
+            <Button
+              size="lg"
+              className="gap-3 border border-foreground py-6 text-lg"
+              variant="ghost"
+              onClick={() => {
+                setLoading(true);
+                signIn("github", { callbackUrl: callbackUrl });
+              }}
+            >
+              <FaGithub className="size-8" />
+              Sign In with Github
+            </Button>
+            <Button
+              size="lg"
+              className="gap-3 border border-foreground py-6 text-lg"
+              variant="ghost"
+              onClick={() => {
+                setLoading(true);
+                signIn("google", { callbackUrl: callbackUrl });
+              }}
+            >
+              <FaGoogle className="size-8" />
+              Sign In with Google
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

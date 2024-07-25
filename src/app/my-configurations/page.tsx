@@ -119,7 +119,15 @@ export default async function Page() {
         </Link>
       </div>
       <div className="h-px w-full bg-zinc-300 dark:bg-zinc-700"></div>
-      <div className="flex flex-col gap-4">{configurationCards}</div>
+      <div className="flex flex-col gap-4">
+        {configurations.length > 0 ? (
+          configurationCards
+        ) : (
+          <p className="mt-8 text-center text-muted-foreground">
+            You haven&apos;t created any custom cases yet.
+          </p>
+        )}
+      </div>
     </FullWidthWrapper>
   );
 }
