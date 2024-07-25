@@ -49,7 +49,7 @@ export default function NavUserButton({ user }: { user: User }) {
           </DropdownMenuItem>
         </form>
         <DropdownMenuSeparator />
-        <DarkModeSwitch />
+        <DarkModeSwitch isMobileNav={false} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

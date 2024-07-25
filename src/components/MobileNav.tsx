@@ -2,16 +2,20 @@
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ArrowRight, Menu } from "lucide-react";
+import { ArrowRight, LogOut, Menu, Smartphone } from "lucide-react";
 import { User } from "next-auth";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
+import { signOut } from "next-auth/react";
+import DarkModeSwitch from "./DarkModeSwitch";
 
 export default function MobileNav({ user }: { user: User | undefined }) {
   return (
@@ -34,26 +38,64 @@ export default function MobileNav({ user }: { user: User | undefined }) {
           </SheetTitle>
         </SheetHeader>
         <div className="mt-2 h-px w-full bg-zinc-300 dark:bg-zinc-700"></div>
-        <div className="mt-8 flex flex-col space-y-4">
-          {user ? (
-            <Button
-              variant="ghost"
-              className="text-md text-zinc-700"
-              type="submit"
+        <div className="mt-6 flex flex-col space-y-6">
+          <SheetClose asChild>
+            <Link
+              href="/configure/upload"
+              className={cn(
+                buttonVariants({
+                  className: "text-md gap-2",
+                }),
+              )}
             >
-              Sign Out
-            </Button>
-          ) : (
-            <Link href="/signin">
-              <Button variant="ghost" className="text-md text-zinc-700">
-                Sign In
-              </Button>
+              Create case
+              <ArrowRight strokeWidth={2} size={20} />
             </Link>
+          </SheetClose>
+          {user ? (
+            <>
+              <SheetClose asChild>
+                <Link
+                  href="/my-configurations"
+                  className={cn(
+                    buttonVariants({
+                      variant: "outline",
+                      className: "text-md gap-2",
+                    }),
+                  )}
+                >
+                  <Smartphone size={16} strokeWidth={1.5} />
+                  My configurations
+                </Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  variant="outline"
+                  className="text-md gap-2"
+                  type="submit"
+                >
+                  <LogOut size={16} strokeWidth={1.5} />
+                  Sign Out
+                </Button>
+              </SheetClose>
+            </>
+          ) : (
+            <SheetClose asChild>
+              <Link
+                href="/signin"
+                className={cn(
+                  buttonVariants({
+                    variant: "outline",
+                    className: "text-md",
+                  }),
+                )}
+              >
+                Sign In
+              </Link>
+            </SheetClose>
           )}
-          <Button className="text-md flex gap-2">
-            Create case
-            <ArrowRight strokeWidth={2} size={20} />
-          </Button>
+          <DarkModeSwitch isMobileNav={true} />
         </div>
       </SheetContent>
     </Sheet>

@@ -1,14 +1,14 @@
 import { auth } from "@/auth";
 import FullWidthWrapper from "@/components/FullWidthWrapper";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { getUserConfigurations } from "@/db/queries";
-import { Check, Pencil, Plus, ShoppingCart } from "lucide-react";
-import { redirect } from "next/navigation";
-import Phone from "@/components/Phone";
-import { COLORS, MODELS } from "@/lib/configuration-options";
-import Link from "next/link";
 import MyConfigurationsButtons from "@/components/MyConfigurationsButtons";
+import Phone from "@/components/Phone";
+import { buttonVariants } from "@/components/ui/button";
+import { getUserConfigurations } from "@/db/queries";
+import { COLORS, MODELS } from "@/lib/configuration-options";
 import { cn } from "@/lib/utils";
+import { Check, Plus } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 function configurationStatusLogic(
   configuration: Awaited<ReturnType<typeof getUserConfigurations>>[0],
