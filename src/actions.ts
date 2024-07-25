@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { auth } from "./auth";
 import {
   createOrder,
@@ -39,6 +40,8 @@ export async function saveCaseConfiguration({
     finish,
     userEmail: user?.email,
   });
+
+  revalidatePath(`/configure/review?id=${configId}`);
 }
 
 export async function createCheckoutSession({
