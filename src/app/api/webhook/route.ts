@@ -3,17 +3,15 @@ import {
   fullfillOrder,
   getConfiguration,
 } from "@/db/queries";
+import OrderPaid from "@/emails/OrderPaid";
+import { CASE_TYPE, FINISH, MODELS } from "@/lib/configuration-options";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
 import { Resend } from "resend";
-import OrderPaid from "@/emails/OrderPaid";
-import { or } from "drizzle-orm";
-import { CASE_TYPE, FINISH, MODELS } from "@/lib/configuration-options";
+import Stripe from "stripe";
 
-// const resend = new Resend(process.env.RESEND_SECRET);
-const resend = new Resend("re_A6HYxWUt_MGtbNkJhJjeLkLfAXRns3PPi");
+const resend = new Resend(process.env.RESEND_SECRET);
 
 export async function POST(request: Request) {
   const body = await request.text();
