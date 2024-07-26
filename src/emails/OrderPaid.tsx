@@ -77,7 +77,7 @@ export default function OrderPaid({
           <Hr style={hr} />
           <Section>
             <Text style={paragraph}>
-              <strong>Shipping to: {Address}</strong>
+              <strong>Shipping to: {Name}</strong>
             </Text>
             <Text>
               {Address}, {City}, {ZipCode}

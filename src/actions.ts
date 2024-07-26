@@ -104,7 +104,7 @@ export async function createCheckoutSession({
         quantity: 1,
       },
     ],
-    metadata: { orderId: orderId },
+    metadata: { orderId: orderId, configId: configId },
     shipping_address_collection: { allowed_countries: ["HR", "DE"] },
     customer_email: user.email!,
     mode: "payment",

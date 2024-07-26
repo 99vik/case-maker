@@ -1,8 +1,19 @@
-import { createShippingAddress, fullfillOrder } from "@/db/queries";
+import {
+  createShippingAddress,
+  fullfillOrder,
+  getConfiguration,
+} from "@/db/queries";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { Resend } from "resend";
+import OrderPaid from "@/emails/OrderPaid";
+import { or } from "drizzle-orm";
+import { CASE_TYPE, FINISH, MODELS } from "@/lib/configuration-options";
+
+// const resend = new Resend(process.env.RESEND_SECRET);
+const resend = new Resend("re_A6HYxWUt_MGtbNkJhJjeLkLfAXRns3PPi");
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -25,7 +36,10 @@ export async function POST(request: Request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
 
-    const { orderId } = session.metadata as { orderId: string };
+    const { orderId, configId } = session.metadata as {
+      orderId: string;
+      configId: string;
+    };
 
     const shippingDetails = session.shipping_details!;
 
@@ -40,6 +54,34 @@ export async function POST(request: Request) {
     await fullfillOrder({
       orderId,
       shippingAddressId,
+    });
+
+    const configuration = await getConfiguration({
+      configId: configId,
+    });
+
+    resend.emails.send({
+      from: "CaseMaker <onboarding@resend.dev>",
+      to: [configuration!.userEmail!],
+      subject: "Order paid",
+      react: OrderPaid({
+        OrderNumber: orderId,
+        OrderDate: new Date().toLocaleDateString(),
+        OrderStatus: "Processing",
+        Name: shippingDetails.name!,
+        Address: shippingDetails.address!.line1!,
+        City: shippingDetails.address!.city!,
+        ZipCode: shippingDetails.address!.postal_code!,
+        PhoneModel: MODELS.find(
+          (model) => configuration!.caseModel === model.value,
+        )!.label,
+        CaseType: CASE_TYPE.find(
+          (type) => configuration!.caseType === type.value,
+        )!.label,
+        Finish: FINISH.find(
+          (finish) => configuration!.caseFinish === finish.value,
+        )!.label,
+      }),
     });
   }
 
