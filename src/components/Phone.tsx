@@ -38,7 +38,7 @@ export default function Phone({
         className={cn(
           "absolute inset-x-[1.5%] inset-y-[0.4%] -z-10 aspect-[890/1860] overflow-hidden rounded-[30px]",
           smallerRadius &&
-            "rounded-[12px] sm:rounded-[18px] md:rounded-[22px] lg:rounded-[26px]",
+            "rounded-[12px] sm:rounded-[18px] md:rounded-[22px] lg:rounded-[28px]",
         )}
       >
         <Image src={imgSrc} fill sizes="33vw" alt="custom phone image" />
