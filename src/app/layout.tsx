@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import QueryProvider from "@/components/QueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CSPostHogProvider } from "@/components/CSPosthogProvider";
+import AuthProvider from "@/components/SessionProvider";
 
 const nunito = Nunito({
   weight: "500",
@@ -28,18 +30,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("bg-secondary", nunito.className)}>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <QueryProvider>
-            <Navbar />
-            <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
-              {children}
-            </main>
-            <Footer />
-            <Toaster />
-          </QueryProvider>
-        </ThemeProvider>
-      </body>
+      <AuthProvider>
+        <CSPostHogProvider>
+          <body className={cn("bg-secondary", nunito.className)}>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              <QueryProvider>
+                <Navbar />
+                <main className="flex min-h-[calc(100vh-56.8px-80px)] flex-col">
+                  {children}
+                </main>
+                <Footer />
+                <Toaster />
+              </QueryProvider>
+            </ThemeProvider>
+          </body>
+        </CSPostHogProvider>
+      </AuthProvider>
     </html>
   );
 }
