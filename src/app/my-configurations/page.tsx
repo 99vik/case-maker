@@ -7,8 +7,13 @@ import { getUserConfigurations } from "@/db/queries";
 import { COLORS, MODELS } from "@/lib/configuration-options";
 import { cn } from "@/lib/utils";
 import { Check, Plus } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+// export const metadata: Metadata = {
+//   title: "My configurations",
+// };
 
 function configurationStatusLogic(
   configuration: Awaited<ReturnType<typeof getUserConfigurations>>[0],

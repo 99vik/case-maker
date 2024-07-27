@@ -5,7 +5,12 @@ import { getConfiguration } from "@/db/queries";
 import { CASE_TYPE, COLORS, FINISH, MODELS } from "@/lib/configuration-options";
 import { isValidUUID } from "@/lib/utils";
 import { Check } from "lucide-react";
+import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Review your case",
+};
 
 export default async function Page({
   searchParams,

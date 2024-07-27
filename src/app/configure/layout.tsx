@@ -2,6 +2,13 @@ import ConfigurationSteps from "@/components/ConfigurationSteps";
 import FullWidthWrapper from "@/components/FullWidthWrapper";
 import { ReactNode } from "react";
 
+export const metadata = {
+  title: {
+    default: "Upload",
+    template: "%s | CaseMaker",
+  },
+};
+
 export default function ConfigurationLayout({
   children,
 }: {

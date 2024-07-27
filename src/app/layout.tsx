@@ -14,8 +14,11 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "CaseMaker",
-  description: "Create your own custom case.",
+  title: {
+    default: "CaseMaker",
+    template: "%s | CaseMaker",
+  },
+  description: "Create your own custom phone case.",
 };
 
 export default function RootLayout({

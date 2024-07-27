@@ -2,7 +2,11 @@ import { auth } from "@/auth";
 import DesignConfigurator from "@/components/DesignConfigurator";
 import { getConfiguration } from "@/db/queries";
 import { isValidUUID } from "@/lib/utils";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+
+export const metadata = {
+  title: "Design your case",
+};
 
 export default async function Page({
   searchParams,
