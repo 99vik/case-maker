@@ -11,9 +11,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-// export const metadata: Metadata = {
-//   title: "My configurations",
-// };
+export const metadata: Metadata = {
+  title: "My configurations",
+};
 
 function configurationStatusLogic(
   configuration: Awaited<ReturnType<typeof getUserConfigurations>>[0],

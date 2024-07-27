@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Review your case",
+  title: "Review",
 };
 
 export default async function Page({

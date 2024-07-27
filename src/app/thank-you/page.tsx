@@ -3,6 +3,10 @@ import ThankYou from "@/components/ThankYou";
 import { isValidUUID } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Thank you",
+};
+
 export default async function Page({
   searchParams,
 }: {

@@ -5,7 +5,7 @@ import { isValidUUID } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
 export const metadata = {
-  title: "Design your case",
+  title: "Design",
 };
 
 export default async function Page({
