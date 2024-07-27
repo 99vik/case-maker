@@ -16,6 +16,7 @@ Next.js app for creating custom phone case. You can upload your own image and ch
 - React Query
 - Uploadthing
 - Resend
+- Posthog
 
 ## Screenshots
 
